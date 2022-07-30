@@ -14,10 +14,9 @@ async function bootstrap(): Promise<NestExpressApplication> {
   );
 
   const configService = app.select(SharedModule).get(ApiConfigService);
-  const port = configService.appConfig.port;
+  const { port } = configService.appConfig;
 
   await app.listen(port, () => console.log(`app start on port: ${port}`));
-
   return app;
 }
 
