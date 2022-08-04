@@ -1,16 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { SequelizeModuleOptions } from '@nestjs/sequelize';
-import { ModelCtor } from 'sequelize-typescript';
 import { Dialect } from 'sequelize/types/sequelize';
-
 import { AppConfig } from 'src/types/common';
-import * as models from 'src/models';
 
 @Injectable()
 export class ApiConfigService {
   private static dialect: Dialect = 'postgres';
-  private static models: ModelCtor[] = Object.values(models);
 
   constructor(private configService: ConfigService) {}
 
@@ -30,7 +26,7 @@ export class ApiConfigService {
     const value = this.get(key);
 
     try {
-      return Number(value);
+      return Number(JSON.parse(value));
     } catch {
       throw new Error(`${key} environment variable is not a number`);
     }
@@ -62,10 +58,9 @@ export class ApiConfigService {
   }
 
   get postgresConfig(): SequelizeModuleOptions {
-    const { models, dialect } = ApiConfigService;
+    const { dialect } = ApiConfigService;
 
     return {
-      models,
       dialect,
       autoLoadModels: true,
       port: this.getNumber('DB_PORT'),
