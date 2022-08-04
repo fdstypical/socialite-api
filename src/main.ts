@@ -15,6 +15,7 @@ async function bootstrap(): Promise<NestExpressApplication> {
   );
 
   app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api');
 
   const configService = app.select(SharedModule).get(ApiConfigService);
   const { port } = configService.appConfig;
