@@ -3,6 +3,7 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 
 import { AppModule } from './app.module';
+import { ValidationPipe } from './pipes/validation.pipe';
 import { ApiConfigService } from './shared/services/api-config.service';
 import { SharedModule } from './shared/shared.module';
 
@@ -12,6 +13,8 @@ async function bootstrap(): Promise<NestExpressApplication> {
     new ExpressAdapter(),
     { cors: true },
   );
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const configService = app.select(SharedModule).get(ApiConfigService);
   const { port } = configService.appConfig;

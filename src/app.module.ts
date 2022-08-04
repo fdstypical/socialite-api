@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import {SequelizeModule} from '@nestjs/sequelize'
+import { SequelizeModule } from '@nestjs/sequelize';
 
 import { SharedModule } from './shared/shared.module';
 import { ApiConfigService } from './shared/services/api-config.service';
@@ -13,9 +13,10 @@ import { ApiConfigService } from './shared/services/api-config.service';
     }),
     SequelizeModule.forRootAsync({
       imports: [SharedModule],
-      useFactory: (configService: ApiConfigService) => configService.postgresConfig,
-      inject: [ApiConfigService]
-    })
+      useFactory: (configService: ApiConfigService) =>
+        configService.postgresConfig,
+      inject: [ApiConfigService],
+    }),
   ],
   providers: [],
 })
