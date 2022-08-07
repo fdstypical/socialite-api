@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import { CreateUserDto } from 'src/modules/user/dto/create.dto';
+import { Gender } from 'src/types/common.types';
 
 @Table({ tableName: 'users' })
 export class User extends Model<User, CreateUserDto> {
@@ -23,6 +24,9 @@ export class User extends Model<User, CreateUserDto> {
   @Column({ type: DataType.STRING, defaultValue: null })
   status: string;
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  gender: string;
+  @Column({
+    type: DataType.ENUM({ values: Object.values(Gender) }),
+    allowNull: false,
+  })
+  gender: Gender;
 }
