@@ -1,5 +1,12 @@
-import { IsEmail, IsNumber, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsString,
+  MinLength,
+} from 'class-validator';
 import { ValidationKey } from 'src/types/validation.types';
+import { Gender } from 'src/types/common.types';
 
 export class CreateUserDto {
   @IsString({ message: ValidationKey.MUST_BE_STRING })
@@ -19,5 +26,12 @@ export class CreateUserDto {
   })
   password: string;
 
+  @IsEnum(Gender, {
+    each: true,
+    message: ValidationKey.MUST_BE_ENUM,
+    context: {
+      availableValues: Object.values(Gender),
+    },
+  })
   gender: string;
 }

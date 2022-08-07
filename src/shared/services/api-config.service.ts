@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize/types/sequelize';
-import { AppConfig } from 'src/types/common.types';
+import { AppConfig } from 'src/types/app.types';
 
 @Injectable()
 export class ApiConfigService {

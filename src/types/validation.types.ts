@@ -7,6 +7,7 @@ export enum ValidationKey {
   MUST_BE_EMAIL = 'must.be.email',
   MUST_BE_LONGER = 'must.be.longer',
   MUST_BE_NUMBER = 'must.be.number',
+  MUST_BE_ENUM = 'must.be.enum',
 }
 
 export interface ValidationMessage {
