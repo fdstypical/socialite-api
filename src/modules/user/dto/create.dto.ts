@@ -10,21 +10,21 @@ import { Gender } from 'src/types/common.types';
 
 export class CreateUserDto {
   @IsString({ message: ValidationKey.MUST_BE_STRING })
-  name: string;
+  readonly name: string;
 
   @IsNumber({}, { message: ValidationKey.MUST_BE_NUMBER })
-  age: number;
+  readonly age: number;
 
   @IsString({ message: ValidationKey.MUST_BE_STRING })
   @IsEmail({}, { message: ValidationKey.MUST_BE_EMAIL })
-  email: string;
+  readonly email: string;
 
   @IsString({ message: ValidationKey.MUST_BE_STRING })
   @MinLength(6, {
     message: ValidationKey.MUST_BE_LONGER,
     context: { minLength: 6 },
   })
-  password: string;
+  readonly password: string;
 
   @IsEnum(Gender, {
     each: true,
@@ -33,5 +33,5 @@ export class CreateUserDto {
       availableValues: Object.values(Gender),
     },
   })
-  gender: string;
+  readonly gender: string;
 }
