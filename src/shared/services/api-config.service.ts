@@ -63,6 +63,7 @@ export class ApiConfigService {
     return {
       dialect,
       autoLoadModels: true,
+      synchronize: false,
       port: this.getNumber('DB_PORT'),
       host: this.getString('DB_HOST'),
       username: this.getString('DB_USERNAME'),
