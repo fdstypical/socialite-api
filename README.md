@@ -36,4 +36,4 @@ $ npm run test:cov
 
 ## Running the Database
 
-`docker run -d —name postgres -e POSTGRES_PASSWORD=root -e POSTGRES_USER=postgres -p 5432:5432 postgres` - start postgres localy on port 5432.
+`docker run -d --name postgres -e POSTGRES_PASSWORD=root -e POSTGRES_USER=postgres -p 5432:5432 postgres` - start postgres localy on port 5432.
