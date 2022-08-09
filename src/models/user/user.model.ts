@@ -2,7 +2,7 @@ import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import { CreateUserDto } from 'src/modules/user/dto/create.dto';
 import { Gender } from 'src/types/common.types';
 
-@Table({ tableName: 'users' })
+@Table({ tableName: 'users', timestamps: false })
 export class User extends Model<User, CreateUserDto> {
   @Column({
     type: DataType.INTEGER,
