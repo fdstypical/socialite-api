@@ -2,11 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize/types/sequelize';
+import { ModelOptions } from 'sequelize/types';
 import { AppConfig } from 'src/types/app.types';
 
 @Injectable()
 export class ApiConfigService {
   private static dialect: Dialect = 'postgres';
+  private static define: ModelOptions = { timestamps: false };
 
   constructor(private configService: ConfigService) {}
 
@@ -58,9 +60,10 @@ export class ApiConfigService {
   }
 
   get postgresConfig(): SequelizeModuleOptions {
-    const { dialect } = ApiConfigService;
+    const { dialect, define } = ApiConfigService;
 
     return {
+      define,
       dialect,
       autoLoadModels: true,
       synchronize: false,
