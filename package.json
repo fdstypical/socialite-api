@@ -22,9 +22,14 @@
     "test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo",
+    "db:migrate:undo:all": "sequelize db:migrate:undo:all",
     "db:migrate:status": "sequelize db:migrate:status",
-    "migration:generate": "sequelize migration:generate",
-    "seed:generate": "sequelize seed:generate"
+    "migration:gen": "sequelize migration:generate",
+    "seed:gen": "sequelize seed:generate",
+    "db:seed": "sequelize db:seed",
+    "db:seed:all": "sequelize db:seed:all",
+    "db:seed:undo": "sequelize db:seed:undo",
+    "db:seed:undo:all": "sequelize db:seed:undo:all"
   },
   "dependencies": {
     "@nestjs/axios": "^0.1.0",

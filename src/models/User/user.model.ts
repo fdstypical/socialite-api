@@ -1,6 +1,14 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
-import { CreateUserDto } from 'src/modules/user/dto/create.dto';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
+import { Role } from '../Role/role.model';
+import { UserCreationAttrs } from './interfaces';
 
 @Table({
   tableName: 'users',
@@ -8,7 +16,7 @@ import { Gender } from 'src/types/common.types';
   createdAt: true,
   updatedAt: false,
 })
-export class User extends Model<User, CreateUserDto> {
+export class User extends Model<User, UserCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -27,11 +35,18 @@ export class User extends Model<User, CreateUserDto> {
   password: string;
 
   @Column({ type: DataType.STRING, defaultValue: null })
-  status: string;
+  status?: string;
 
   @Column({
     type: DataType.ENUM({ values: Object.values(Gender) }),
     allowNull: false,
   })
   gender: Gender;
+
+  @ForeignKey(() => Role)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  roleId: number;
+
+  @BelongsTo(() => Role)
+  role: Role;
 }

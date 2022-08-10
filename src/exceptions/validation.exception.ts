@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ValidationError, ErrorMessage } from 'src/types/validation.types';
+import { ValidationError } from 'src/types/validation.types';
+import { ErrorMessage } from 'src/types/common.types';
 
 export class ValidationException extends HttpException {
   public readonly messages: ValidationError[];

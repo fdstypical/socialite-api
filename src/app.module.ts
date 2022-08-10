@@ -4,7 +4,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { SharedModule } from './shared/shared.module';
 import { ApiConfigService } from './shared/services/api-config.service';
-import { USerModule } from './modules/user/user.module';
+import { UserModule } from './modules/user/user.module';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { USerModule } from './modules/user/user.module';
         configService.postgresConfig,
       inject: [ApiConfigService],
     }),
-    USerModule,
+    UserModule,
+    RoleModule,
   ],
   providers: [],
 })

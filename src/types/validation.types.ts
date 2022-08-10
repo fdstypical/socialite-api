@@ -1,7 +1,3 @@
-export enum ErrorMessage {
-  ValidationError = 'Validation Error',
-}
-
 export enum ValidationKey {
   MUST_BE_STRING = 'must.be.string',
   MUST_BE_EMAIL = 'must.be.email',

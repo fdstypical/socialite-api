@@ -33,5 +33,5 @@ export class CreateUserDto {
       availableValues: Object.values(Gender),
     },
   })
-  readonly gender: string;
+  readonly gender: Gender;
 }
