@@ -13,24 +13,40 @@ export class UserService {
   ) {}
 
   async create(dto: CreateUserDto) {
-    const userRole = await this.roleService.getByName(RoleName.USER);
+    const userRole = await this.getRole();
+    return this.createOrReject(dto, userRole);
+  }
 
-    if (!userRole)
+  async getAll() {
+    return this.userRepository.findAll({ include: [Role] });
+  }
+
+  private async getRole(roleName: RoleName = RoleName.USER) {
+    const role = await this.roleService.getByName(roleName);
+
+    if (!role)
       throw new HttpException(
         ErrorMessage.InternalError,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
 
-    const user = await this.userRepository.create({
+    return role;
+  }
+
+  private async createOrReject(dto: CreateUserDto, userRole: Role) {
+    const candidate = await this.userRepository.findOne({
+      where: { email: dto.email },
+    });
+
+    if (candidate)
+      throw new HttpException(
+        ErrorMessage.InternalError,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+
+    return this.userRepository.create({
       ...dto,
       roleId: userRole.id,
     });
-
-    return user;
-  }
-
-  async getAll() {
-    const users = await this.userRepository.findAll({ include: [Role] });
-    return users;
   }
 }
