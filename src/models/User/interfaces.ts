@@ -1,10 +1,5 @@
-import { Gender } from 'src/types/common.types';
+import { CreateUserDto } from 'src/modules/user/dto/create.dto';
 
-export interface UserCreationAttrs {
-  name: string;
-  email: string;
-  password: string;
-  status?: string;
-  gender: Gender;
+export interface UserCreationAttributes extends CreateUserDto {
   roleId: number;
 }

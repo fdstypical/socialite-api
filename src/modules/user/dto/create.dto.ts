@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsEnum,
   IsNumber,
+  IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -34,4 +35,8 @@ export class CreateUserDto {
     },
   })
   readonly gender: Gender;
+
+  @IsOptional()
+  @IsString({ message: ValidationKey.MUST_BE_STRING })
+  status?: string;
 }
