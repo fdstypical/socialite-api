@@ -1,3 +1,7 @@
+import { HttpStatus } from '@nestjs/common';
+import { ErrorMessage } from 'src/constants/error.messages';
+import { Record } from './app.types';
+
 export enum Gender {
   MALE = 'male',
   FEMALE = 'female',
@@ -10,7 +14,8 @@ export enum RoleName {
   OWNER = 'owner',
 }
 
-export enum ErrorMessage {
-  ValidationError = 'Validation Error',
-  InternalError = 'Internal Server Error',
+export interface BaseErrorResponse<T> extends Record<string, any> {
+  statusCode: HttpStatus;
+  message: ErrorMessage;
+  messages?: T[];
 }

@@ -1,7 +1,12 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { BaseException } from 'src/exceptions/base.exception';
 import { Role, User } from 'src/models';
-import { ErrorMessage, RoleName } from 'src/types/common.types';
+import { RoleName } from 'src/types/common.types';
+import {
+  ErrorMessage,
+  UserValidationMessage,
+} from 'src/constants/error.messages';
 import { RoleService } from '../role/role.service';
 import { CreateUserDto } from './dto/create.dto';
 
@@ -25,8 +30,11 @@ export class UserService {
     const role = await this.roleService.getByName(roleName);
 
     if (!role)
-      throw new HttpException(
-        ErrorMessage.InternalError,
+      throw new BaseException(
+        {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: ErrorMessage.InternalError,
+        },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
 
@@ -39,9 +47,13 @@ export class UserService {
     });
 
     if (candidate)
-      throw new HttpException(
-        ErrorMessage.InternalError,
-        HttpStatus.INTERNAL_SERVER_ERROR,
+      throw new BaseException(
+        {
+          statusCode: HttpStatus.CONFLICT,
+          message: ErrorMessage.Conflict,
+          messages: [UserValidationMessage.NOT_UNIQUE],
+        },
+        HttpStatus.CONFLICT,
       );
 
     return this.userRepository.create({

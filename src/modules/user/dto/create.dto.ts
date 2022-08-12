@@ -6,30 +6,30 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { ValidationKey } from 'src/types/validation.types';
+import { ValidationErrorMessage } from 'src/constants/error.messages';
 import { Gender } from 'src/types/common.types';
 
 export class CreateUserDto {
-  @IsString({ message: ValidationKey.MUST_BE_STRING })
+  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
   readonly name: string;
 
-  @IsNumber({}, { message: ValidationKey.MUST_BE_NUMBER })
+  @IsNumber({}, { message: ValidationErrorMessage.MUST_BE_NUMBER })
   readonly age: number;
 
-  @IsString({ message: ValidationKey.MUST_BE_STRING })
-  @IsEmail({}, { message: ValidationKey.MUST_BE_EMAIL })
+  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
+  @IsEmail({}, { message: ValidationErrorMessage.MUST_BE_EMAIL })
   readonly email: string;
 
-  @IsString({ message: ValidationKey.MUST_BE_STRING })
+  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
   @MinLength(6, {
-    message: ValidationKey.MUST_BE_LONGER,
+    message: ValidationErrorMessage.MUST_BE_LONGER,
     context: { minLength: 6 },
   })
   readonly password: string;
 
   @IsEnum(Gender, {
     each: true,
-    message: ValidationKey.MUST_BE_ENUM,
+    message: ValidationErrorMessage.MUST_BE_ENUM,
     context: {
       availableValues: Object.values(Gender),
     },
@@ -37,6 +37,6 @@ export class CreateUserDto {
   readonly gender: Gender;
 
   @IsOptional()
-  @IsString({ message: ValidationKey.MUST_BE_STRING })
+  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
   status?: string;
 }

@@ -1,14 +1,14 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { RoleName } from 'src/types/common.types';
-import { ValidationKey } from 'src/types/validation.types';
+import { ValidationErrorMessage } from "src/constants/error.messages";
 
 export class CreateRoleDto {
-  @IsNumber({}, { message: ValidationKey.MUST_BE_NUMBER })
+  @IsNumber({}, { message: ValidationErrorMessage.MUST_BE_NUMBER })
   readonly level: number;
 
   @IsEnum(RoleName, {
     each: true,
-    message: ValidationKey.MUST_BE_ENUM,
+    message: ValidationErrorMessage.MUST_BE_ENUM,
     context: {
       availableValues: Object.values(RoleName),
     },
@@ -16,6 +16,6 @@ export class CreateRoleDto {
   readonly name: RoleName;
 
   @IsOptional()
-  @IsString({ message: ValidationKey.MUST_BE_STRING })
+  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
   readonly description: string;
 }

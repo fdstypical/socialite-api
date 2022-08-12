@@ -1,10 +1,9 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common';
 import { ValidationError } from 'src/types/validation.types';
-import { ErrorMessage } from 'src/types/common.types';
+import { ErrorMessage } from 'src/constants/error.messages';
+import { BaseException } from './base.exception';
 
-export class ValidationException extends HttpException {
-  public readonly messages: ValidationError[];
-
+export class ValidationException extends BaseException<ValidationError> {
   constructor(response: ValidationError[]) {
     super(
       {
@@ -14,6 +13,5 @@ export class ValidationException extends HttpException {
       },
       HttpStatus.BAD_REQUEST,
     );
-    this.messages = response;
   }
 }

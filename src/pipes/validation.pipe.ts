@@ -24,9 +24,9 @@ export class ValidationPipe implements PipeTransform {
     if (errors.length) {
       throw new ValidationException(
         errors.map(({ property, constraints, contexts }) => ({
-          property,
+          target: property,
           messages: Object.keys(constraints ?? {}).map((key) => ({
-            localizationKey: constraints?.[key] || null,
+            message: constraints?.[key] || null,
             context: contexts?.[key],
           })),
         })),
