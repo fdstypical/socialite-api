@@ -34,6 +34,30 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Environments
+
+#### Requirements
+
+- Must be in the root of the project
+- Filename format should be: .\*.env
+- \* - must be one of: test, development, production
+
+#### Example env
+
+```
+# .*.env
+PORT=3000
+DB_NAME=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=root
+DB_PORT=5432
+DB_HOST=localhost
+JWT_ACCESS_SECRET=**********
+JWT_ACCESS_EXPIRES_IN=1h
+JWT_REFRESH_SECRET=**********
+JWT_REFRESH_EXPIRES_IN=30d
+```
+
 ## Running the Database
 
 `docker run -d --name postgres -e POSTGRES_PASSWORD=root -e POSTGRES_USER=postgres -p 5432:5432 postgres` - start postgres localy on port 5432.
