@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { SequelizeModuleOptions } from '@nestjs/sequelize';
+import { JwtModuleOptions, JwtSignOptions } from '@nestjs/jwt';
 import { Dialect } from 'sequelize/types/sequelize';
 import { ModelOptions } from 'sequelize/types';
 import { AppConfig } from 'src/types/app.types';
@@ -72,6 +73,29 @@ export class ApiConfigService {
       username: this.getString('DB_USERNAME'),
       password: this.getString('DB_PASSWORD'),
       database: this.getString('DB_NAME'),
+    };
+  }
+
+  get BaseJwtConfig(): JwtModuleOptions {
+    return {
+      secret: this.getString('JWT_ACCESS_SECRET'),
+      signOptions: {
+        expiresIn: this.getString('JWT_ACCESS_EXPIRES_IN'),
+      },
+    };
+  }
+
+  get JwtAccessConfig(): JwtSignOptions {
+    return {
+      secret: this.getString('JWT_ACCESS_SECRET'),
+      expiresIn: this.getString('JWT_ACCESS_EXPIRES_IN'),
+    };
+  }
+
+  get JwtRefreshConfig(): JwtSignOptions {
+    return {
+      secret: this.getString('JWT_REFRESH_SECRET'),
+      expiresIn: this.getString('JWT_REFRESH_EXPIRES_IN'),
     };
   }
 

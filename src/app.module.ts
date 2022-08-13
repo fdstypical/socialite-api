@@ -6,6 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { ApiConfigService } from './shared/services/api-config.service';
 import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RoleModule } from './modules/role/role.module';
     }),
     UserModule,
     RoleModule,
+    AuthModule
   ],
   providers: [],
 })

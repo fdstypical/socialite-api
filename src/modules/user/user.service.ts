@@ -17,13 +17,17 @@ export class UserService {
     private roleService: RoleService,
   ) {}
 
+  async getAll() {
+    return this.userRepository.findAll({ include: [Role] });
+  }
+
+  async getByEmail(email: string) {
+    return this.userRepository.findOne({ where: { email }, include: [Role] });
+  }
+
   async create(dto: CreateUserDto) {
     const userRole = await this.getRole();
     return this.createOrReject(dto, userRole);
-  }
-
-  async getAll() {
-    return this.userRepository.findAll({ include: [Role] });
   }
 
   private async getRole(roleName: RoleName = RoleName.USER) {
@@ -42,9 +46,7 @@ export class UserService {
   }
 
   private async createOrReject(dto: CreateUserDto, userRole: Role) {
-    const candidate = await this.userRepository.findOne({
-      where: { email: dto.email },
-    });
+    const candidate = await this.getByEmail(dto.email);
 
     if (candidate)
       throw new BaseException(

@@ -7,6 +7,7 @@ export enum ErrorMessage {
   ValidationError = 'error.validation',
   InternalError = 'error.internal_server_error',
   Conflict = 'error.conflict',
+  Unauthorized = 'error.unauthorized',
 }
 
 /*
