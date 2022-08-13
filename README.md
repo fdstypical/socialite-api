@@ -40,7 +40,7 @@ $ npm run test:cov
 
 - Must be in the root of the project
 - Filename format should be: .\*.env
-- \* - must be one of: test, development, production
+- Available environments: test, development, production
 
 #### Example env
 
