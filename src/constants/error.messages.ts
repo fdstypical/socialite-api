@@ -22,7 +22,3 @@ export enum ValidationErrorMessage {
   MUST_BE_NUMBER = 'must.be.number',
   MUST_BE_ENUM = 'must.be.enum',
 }
-
-export enum UserValidationMessage {
-  NOT_UNIQUE = 'user.not_unique',
-}

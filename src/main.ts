@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { ExpressAdapter } from '@nestjs/platform-express';
+import { useContainer } from 'class-validator';
 
 import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
@@ -16,6 +17,7 @@ async function bootstrap(): Promise<NestExpressApplication> {
 
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   const configService = app.select(SharedModule).get(ApiConfigService);
   const { port } = configService.appConfig;

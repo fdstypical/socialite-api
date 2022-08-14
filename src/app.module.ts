@@ -7,6 +7,7 @@ import { ApiConfigService } from './shared/services/api-config.service';
 import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { UniqueValidator } from './validators/unique.validator';
 
 @Module({
   imports: [
@@ -22,8 +23,8 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     UserModule,
     RoleModule,
-    AuthModule
+    AuthModule,
   ],
-  providers: [],
+  providers: [UniqueValidator],
 })
 export class AppModule {}

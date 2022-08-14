@@ -3,10 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { BaseException } from 'src/exceptions/base.exception';
 import { Role, User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
-import {
-  ErrorMessage,
-  UserValidationMessage,
-} from 'src/constants/error.messages';
+import { ErrorMessage } from 'src/constants/error.messages';
 import { RoleService } from '../role/role.service';
 import { CreateUserDto } from './dto/create.dto';
 
@@ -27,7 +24,7 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     const userRole = await this.getRole();
-    return this.createOrReject(dto, userRole);
+    return this.userRepository.create({ ...dto, roleId: userRole.id });
   }
 
   private async getRole(roleName: RoleName = RoleName.USER) {
@@ -43,24 +40,5 @@ export class UserService {
       );
 
     return role;
-  }
-
-  private async createOrReject(dto: CreateUserDto, userRole: Role) {
-    const candidate = await this.getByEmail(dto.email);
-
-    if (candidate)
-      throw new BaseException(
-        {
-          statusCode: HttpStatus.CONFLICT,
-          message: ErrorMessage.Conflict,
-          messages: [UserValidationMessage.NOT_UNIQUE],
-        },
-        HttpStatus.CONFLICT,
-      );
-
-    return this.userRepository.create({
-      ...dto,
-      roleId: userRole.id,
-    });
   }
 }
