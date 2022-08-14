@@ -23,33 +23,33 @@ export class User extends Model<User, UserCreationAttributes> {
     autoIncrement: true,
     primaryKey: true,
   })
-  id: number;
+  readonly id: number;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  name: string;
+  readonly name: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  age: string;
+  readonly age: string;
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
-  email: string;
+  readonly email: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  password: string;
+  readonly password: string;
 
   @Column({ type: DataType.STRING, defaultValue: null })
-  status?: string;
+  readonly status?: string;
 
   @Column({
     type: DataType.ENUM({ values: Object.values(Gender) }),
     allowNull: false,
   })
-  gender: Gender;
+  readonly gender: Gender;
 
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  roleId: number;
+  readonly roleId: number;
 
   @BelongsTo(() => Role)
-  role: Role;
+  readonly role: Role;
 }

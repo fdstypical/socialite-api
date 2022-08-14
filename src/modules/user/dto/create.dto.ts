@@ -17,7 +17,6 @@ export class CreateUserDto {
   readonly name: string;
 
   @IsNumber({}, { message: ValidationErrorMessage.MUST_BE_NUMBER })
-  @Validate(UniqueValidator, [User])
   readonly age: number;
 
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })

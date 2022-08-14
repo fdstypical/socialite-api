@@ -11,7 +11,7 @@ export class ApiConfigService {
   private static dialect: Dialect = 'postgres';
   private static define: ModelOptions = { timestamps: false };
 
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   get isDevelopment(): boolean {
     return this.nodeEnv === 'development';

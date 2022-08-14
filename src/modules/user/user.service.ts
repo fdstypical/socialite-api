@@ -10,8 +10,8 @@ import { CreateUserDto } from './dto/create.dto';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User) private userRepository: typeof User,
-    private roleService: RoleService,
+    @InjectModel(User) private readonly userRepository: typeof User,
+    private readonly roleService: RoleService,
   ) {}
 
   async getAll() {
