@@ -5,12 +5,12 @@ import {
   IsOptional,
   IsString,
   MinLength,
-  Validate,
 } from 'class-validator';
 import { ValidationErrorMessage } from 'src/constants/error.messages';
 import { User } from 'src/models';
 import { Gender } from 'src/types/common.types';
 import { UniqueValidator } from 'src/validators/unique.validator';
+import { IsUnique } from 'src/decorators/unique.decorator';
 
 export class CreateUserDto {
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
@@ -21,7 +21,7 @@ export class CreateUserDto {
 
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
   @IsEmail({}, { message: ValidationErrorMessage.MUST_BE_EMAIL })
-  @Validate(UniqueValidator, [User])
+  @IsUnique(UniqueValidator, [User])
   readonly email: string;
 
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
