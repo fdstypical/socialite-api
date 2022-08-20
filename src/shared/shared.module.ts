@@ -2,8 +2,9 @@ import { HttpModule } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
 
 import { ApiConfigService } from './services/api-config.service';
+import { DateService } from './services/date.service';
 
-const providers = [ApiConfigService];
+const providers = [ApiConfigService, DateService];
 
 @Global()
 @Module({

@@ -5,7 +5,9 @@ import { Role } from 'src/models';
 
 @Injectable()
 export class RoleService {
-  constructor(@InjectModel(Role) private readonly roleRepository: typeof Role) {}
+  constructor(
+    @InjectModel(Role) private readonly roleRepository: typeof Role,
+  ) {}
 
   getByName(name: RoleName) {
     return this.roleRepository.findOne({ where: { name } });

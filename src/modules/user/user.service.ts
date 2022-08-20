@@ -1,11 +1,10 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { BaseException } from 'src/exceptions/base.exception';
 import { Role, User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
-import { ErrorMessage } from 'src/constants/error.messages';
 import { RoleService } from '../role/role.service';
-import { CreateUserDto } from './dto/create.dto';
+import { CreateUserDto } from './dtos/create.dto';
+import { BaseExceptionFactory } from 'src/factories/exception.factories/base.exception.vactory';
 
 @Injectable()
 export class UserService {
@@ -22,6 +21,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { email }, include: [Role] });
   }
 
+  async getById(id: number) {
+    return this.userRepository.findByPk(id);
+  }
+
   async create(dto: CreateUserDto) {
     const userRole = await this.getRole();
     return this.userRepository.create({ ...dto, roleId: userRole.id });
@@ -30,14 +33,7 @@ export class UserService {
   private async getRole(roleName: RoleName = RoleName.USER) {
     const role = await this.roleService.getByName(roleName);
 
-    if (!role)
-      throw new BaseException(
-        {
-          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-          message: ErrorMessage.InternalError,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    if (!role) throw BaseExceptionFactory();
 
     return role;
   }

@@ -1,6 +1,6 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { RoleName } from 'src/types/common.types';
-import { ValidationErrorMessage } from "src/constants/error.messages";
+import { ValidationErrorMessage } from 'src/constants/error.messages';
 
 export class CreateRoleDto {
   @IsNumber({}, { message: ValidationErrorMessage.MUST_BE_NUMBER })

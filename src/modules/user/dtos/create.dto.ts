@@ -11,6 +11,7 @@ import { User } from 'src/models';
 import { Gender } from 'src/types/common.types';
 import { UniqueValidator } from 'src/validators/unique.validator';
 import { IsUnique } from 'src/decorators/unique.decorator';
+import { Constants } from 'src/constants/app.constants';
 
 export class CreateUserDto {
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
@@ -25,9 +26,9 @@ export class CreateUserDto {
   readonly email: string;
 
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
-  @MinLength(6, {
+  @MinLength(Constants.min_password_length, {
     message: ValidationErrorMessage.MUST_BE_LONGER,
-    context: { minLength: 6 },
+    context: { minLength: Constants.min_password_length },
   })
   readonly password: string;
 

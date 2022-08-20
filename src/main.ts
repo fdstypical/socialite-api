@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { useContainer } from 'class-validator';
+import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
@@ -15,6 +16,7 @@ async function bootstrap(): Promise<NestExpressApplication> {
     { cors: true },
   );
 
+  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
