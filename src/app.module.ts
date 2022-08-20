@@ -8,6 +8,7 @@ import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UniqueValidator } from './validators/unique.validator';
+import { AuthGuard } from './guards/AuthGuard';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { UniqueValidator } from './validators/unique.validator';
     RoleModule,
     AuthModule,
   ],
-  providers: [UniqueValidator],
+  providers: [UniqueValidator, AuthGuard],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ApiConfigService } from 'src/shared/services/api-config.service';
 import { SharedModule } from 'src/shared/shared.module';
@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providers: [AuthService],
   controllers: [AuthController],
   imports: [
-    forwardRef(() => UserModule),
+    UserModule,
     JwtModule.registerAsync({
       imports: [SharedModule],
       useFactory: (configService: ApiConfigService) =>

@@ -1,11 +1,13 @@
 import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { IsPublic } from 'src/decorators/public-controller.decorator';
 import { ApiConfigService } from 'src/shared/services/api-config.service';
 import { DateService } from 'src/shared/services/date.service';
 import { CreateUserDto } from '../user/dtos/create.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 
+@IsPublic()
 @Controller('auth')
 export class AuthController {
   constructor(
