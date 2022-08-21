@@ -3,6 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Constants } from 'src/constants/app.constants';
+import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { IS_PUBLIC_KEY } from 'src/decorators/public-controller.decorator';
 
 @Injectable()
@@ -10,6 +11,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
+    private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -30,6 +32,8 @@ export class AuthGuard implements CanActivate {
       if (tokenType !== Constants.TOKEN_TYPE || !token) return false;
 
       const payload = await this.jwtService.verifyAsync(token);
+      this.asyncContext.set('user', payload);
+
       return true;
     } catch (error) {
       return false;

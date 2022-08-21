@@ -16,4 +16,8 @@ export class RoleService {
   getByLevel(level: number) {
     return this.roleRepository.findOne({ where: { level } });
   }
+
+  getById(id: number) {
+    return this.roleRepository.findByPk(id);
+  }
 }
