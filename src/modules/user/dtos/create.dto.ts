@@ -26,9 +26,9 @@ export class CreateUserDto {
   readonly email: string;
 
   @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
-  @MinLength(Constants.min_password_length, {
+  @MinLength(Constants.MIN_PASSWORD_LENGTH, {
     message: ValidationErrorMessage.MUST_BE_LONGER,
-    context: { minLength: Constants.min_password_length },
+    context: { minLength: Constants.MIN_PASSWORD_LENGTH },
   })
   readonly password: string;
 

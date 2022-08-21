@@ -1,5 +1,5 @@
 export enum Constants {
-  min_password_length = 6,
-  bcrypt_salt = 5,
-  token_type = 'Bearer',
+  MIN_PASSWORD_LENGTH = 6,
+  BCRYPT_SALT = 5,
+  TOKEN_TYPE = 'Bearer',
 }

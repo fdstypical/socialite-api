@@ -5,7 +5,7 @@ import { useContainer } from 'class-validator';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
-import { AuthGuard } from './guards/AuthGuard';
+import { AuthGuard } from './guards/auth.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { ApiConfigService } from './shared/services/api-config.service';
 import { SharedModule } from './shared/shared.module';

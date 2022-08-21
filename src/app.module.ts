@@ -8,7 +8,7 @@ import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UniqueValidator } from './validators/unique.validator';
-import { AuthGuard } from './guards/AuthGuard';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
