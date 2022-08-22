@@ -1,16 +1,25 @@
 import { HttpModule } from '@nestjs/axios';
-import { Global, Module } from '@nestjs/common';
+import { DynamicModule } from '@nestjs/common';
 
 import { ApiConfigService } from './services/api-config.service';
 import { DateService } from './services/date.service';
 import { UuidService } from './services/uuid.service';
 
-const providers = [ApiConfigService, DateService, UuidService];
+interface SharedModuleOptions {
+  isGlobal?: boolean;
+}
 
-@Global()
-@Module({
-  providers,
-  imports: [HttpModule],
-  exports: [...providers, HttpModule],
-})
-export class SharedModule {}
+export class SharedModule {
+  static forRoot(options?: SharedModuleOptions): DynamicModule {
+    const isGlobal = options?.isGlobal ?? false;
+    const providers = [ApiConfigService, DateService, UuidService];
+
+    return {
+      module: SharedModule,
+      global: isGlobal,
+      providers,
+      imports: [HttpModule],
+      exports: [...providers, HttpModule],
+    };
+  }
+}

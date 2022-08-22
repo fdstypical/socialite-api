@@ -17,6 +17,8 @@ import { ValidationPipe } from './pipes/validation.pipe';
 
 @Module({
   imports: [
+    AsyncContextModule.forRoot({ isGlobal: true }),
+    SharedModule.forRoot({ isGlobal: true }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -27,7 +29,6 @@ import { ValidationPipe } from './pipes/validation.pipe';
         configService.postgresConfig,
       inject: [ApiConfigService],
     }),
-    AsyncContextModule.forRoot({ isGlobal: true }),
     UserModule,
     RoleModule,
     AuthModule,
