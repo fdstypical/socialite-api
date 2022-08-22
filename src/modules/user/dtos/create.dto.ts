@@ -9,8 +9,7 @@ import {
 import { ValidationErrorMessage } from 'src/constants/error.messages';
 import { User } from 'src/models';
 import { Gender } from 'src/types/common.types';
-import { UniqueValidator } from 'src/validators/unique.validator';
-import { IsUnique } from 'src/decorators/unique.decorator';
+import { IsUnique, UniqueValidator } from 'src/decorators/unique.decorator';
 import { Constants } from 'src/constants/app.constants';
 
 export class CreateUserDto {

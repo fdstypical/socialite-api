@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
-import { UuidService } from 'src/shared/services/uuid.service';
+import { UuidService } from 'src/core/modules/shared/services/uuid.service';
 
 @Injectable()
 export class AsyncContextMiddleware implements NestMiddleware {

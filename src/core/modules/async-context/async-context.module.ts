@@ -9,7 +9,7 @@ interface AsyncContextModuleOptions {
 
 export class AsyncContextModule {
   static forRoot(options?: AsyncContextModuleOptions): DynamicModule {
-    const isGlobal = options?.isGlobal ?? true;
+    const isGlobal = options?.isGlobal ?? false;
     const alsInstance = options?.alsInstance ?? new AsyncLocalStorage();
 
     return {

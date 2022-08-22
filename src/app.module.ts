@@ -3,15 +3,15 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 import { AsyncContextModule } from './core/modules/async-context/async-context.module';
-import { SharedModule } from './shared/shared.module';
-import { ApiConfigService } from './shared/services/api-config.service';
+import { AsyncContextMiddleware } from './core/middlewares/async-context.middleware';
+import { ApiConfigService } from './core/modules/shared/services/api-config.service';
+import { UniqueValidator } from './core/validators/unique.validator';
+import { SharedModule } from './core/modules/shared/shared.module';
 import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { UniqueValidator } from './validators/unique.validator';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
-import { AsyncContextMiddleware } from './middlewares/async-context.middleware';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { AsyncContextMiddleware } from './middlewares/async-context.middleware';
         configService.postgresConfig,
       inject: [ApiConfigService],
     }),
-    AsyncContextModule.forRoot(),
+    AsyncContextModule.forRoot({ isGlobal: true }),
     UserModule,
     RoleModule,
     AuthModule,

@@ -8,8 +8,8 @@ import { AppModule } from './app.module';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
-import { ApiConfigService } from './shared/services/api-config.service';
-import { SharedModule } from './shared/shared.module';
+import { ApiConfigService } from './core/modules/shared/services/api-config.service';
+import { SharedModule } from './core/modules/shared/shared.module';
 
 async function bootstrap(): Promise<NestExpressApplication> {
   const app = await NestFactory.create<NestExpressApplication>(

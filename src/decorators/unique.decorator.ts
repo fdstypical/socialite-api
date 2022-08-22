@@ -3,7 +3,8 @@ import { registerDecorator, ValidationOptions } from 'class-validator';
 import {
   UniqueConstraintsArguments,
   AbstractUniueValidator,
-} from 'src/validators/abstract-unique.validator';
+} from 'src/core/validators/abstract-unique.validator';
+export { UniqueValidator } from 'src/core/validators/unique.validator';
 
 export function IsUnique(
   validator: new (connection: Sequelize) => AbstractUniueValidator,

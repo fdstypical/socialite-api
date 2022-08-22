@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { User } from 'src/models';
 import { Constants } from 'src/constants/app.constants';
 import { BaseExceptionFactory } from 'src/factories/exception.factories/base.exception.vactory';
-import { ApiConfigService } from 'src/shared/services/api-config.service';
+import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
 import { ErrorMessage } from 'src/constants/error.messages';
 import { CreateUserDto } from '../user/dtos/create.dto';
 import { UserService } from '../user/user.service';
