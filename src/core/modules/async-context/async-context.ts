@@ -62,7 +62,7 @@ export class AsyncContext<K, V> implements Map<K, V> {
     return this.getStore()[Symbol.iterator]();
   }
 
-  [Symbol.toStringTag]: string = '[object AsyncContext]';
+  [Symbol.toStringTag] = '[object AsyncContext]';
 
   public register(): void {
     this.als.enterWith(new Map<K, V>());

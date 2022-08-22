@@ -5,9 +5,6 @@ import { useContainer } from 'class-validator';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
-import { AuthGuard } from './guards/auth.guard';
-import { RolesGuard } from './guards/roles.guard';
-import { ValidationPipe } from './pipes/validation.pipe';
 import { ApiConfigService } from './core/modules/shared/services/api-config.service';
 import { SharedModule } from './core/modules/shared/shared.module';
 
@@ -18,16 +15,11 @@ async function bootstrap(): Promise<NestExpressApplication> {
     { cors: true },
   );
 
-  const authGuard = app.select(AppModule).get(AuthGuard);
-  const rolesGuard = app.select(AppModule).get(RolesGuard);
   const configService = app.select(SharedModule).get(ApiConfigService);
   const { port } = configService.appConfig;
 
   app.use(cookieParser());
   app.setGlobalPrefix('api');
-  app.useGlobalGuards(authGuard);
-  app.useGlobalGuards(rolesGuard);
-  app.useGlobalPipes(new ValidationPipe());
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(port, () => console.log(`app start on port: ${port}`));
