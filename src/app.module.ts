@@ -17,8 +17,8 @@ import { ValidationPipe } from './pipes/validation.pipe';
 
 @Module({
   imports: [
-    AsyncContextModule.forRoot({ isGlobal: true }),
     SharedModule.forRoot({ isGlobal: true }),
+    AsyncContextModule.forRoot({ isGlobal: true }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.${process.env.NODE_ENV}.env`,

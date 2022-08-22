@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from 'async_hooks';
 
-export class AsyncContext<K, V> implements Map<K, V> {
+export class AsyncContext<K = unknown, V = unknown> implements Map<K, V> {
   constructor(protected readonly als: AsyncLocalStorage<Map<K, V>>) {}
 
   private getStore(): Map<K, V> {

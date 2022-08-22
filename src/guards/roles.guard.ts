@@ -9,8 +9,8 @@ import { RoleName } from 'src/types/common.types';
 export class RolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly asyncContext: AsyncContext<string, any>,
     private readonly roleService: RoleService,
+    private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
