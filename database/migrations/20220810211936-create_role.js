@@ -9,11 +9,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      level: {
-        type: Sequelize.INTEGER,
-        unique: true,
-        allowNull: false,
-      },
       name: {
         type: Sequelize.ENUM,
         values: ['user', 'admin', 'owner'],

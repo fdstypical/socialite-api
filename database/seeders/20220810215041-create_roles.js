@@ -6,17 +6,14 @@ module.exports = {
       'roles',
       [
         {
-          level: 1,
           name: 'user',
           description: 'Simple User',
         },
         {
-          level: 2,
           name: 'admin',
           description: 'Site Administrator',
         },
         {
-          level: 3,
           name: 'owner',
           description: 'Site Owner',
         },

@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { ErrorMessage } from 'src/constants/error.messages';
-import { Record } from './app.types';
+import { Record } from '../core/types/app.types';
 
 export enum Gender {
   MALE = 'male',

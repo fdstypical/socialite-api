@@ -4,7 +4,7 @@ import type { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { JwtModuleOptions, JwtSignOptions } from '@nestjs/jwt';
 import { Dialect } from 'sequelize/types/sequelize';
 import { ModelOptions } from 'sequelize/types';
-import { AppConfig } from 'src/types/app.types';
+import { AppConfig } from 'src/core/types/app.types';
 
 @Injectable()
 export class ApiConfigService {

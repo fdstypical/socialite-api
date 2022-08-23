@@ -14,13 +14,6 @@ export class Role extends Model<Role, CreateRoleDto> {
   readonly id: number;
 
   @Column({
-    type: DataType.INTEGER,
-    unique: true,
-    allowNull: false,
-  })
-  readonly level: number;
-
-  @Column({
     type: DataType.ENUM({ values: Object.values(RoleName) }),
     unique: true,
     allowNull: false,
@@ -31,7 +24,7 @@ export class Role extends Model<Role, CreateRoleDto> {
     type: DataType.STRING,
     defaultValue: null,
   })
-  readonly description: string;
+  readonly description: string | null;
 
   @HasMany(() => User)
   readonly users: User[];

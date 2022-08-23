@@ -26,15 +26,11 @@ export class UserService {
   }
 
   async create(dto: CreateUserDto) {
-    const userRole = await this.getRole();
+    const [userRole] = await this.findOrCreateRole(RoleName.USER);
     return this.userRepository.create({ ...dto, roleId: userRole.id });
   }
 
-  private async getRole(roleName: RoleName = RoleName.USER) {
-    const role = await this.roleService.getByName(roleName);
-
-    if (!role) throw BaseExceptionFactory();
-
-    return role;
+  private async findOrCreateRole(roleName: RoleName) {
+    return await this.roleService.findOrCreate({ name: roleName });
   }
 }

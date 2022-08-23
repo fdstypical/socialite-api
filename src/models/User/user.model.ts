@@ -38,7 +38,7 @@ export class User extends Model<User, UserCreationAttributes> {
   readonly password: string;
 
   @Column({ type: DataType.STRING, defaultValue: null })
-  readonly status?: string;
+  readonly status: string | null;
 
   @Column({
     type: DataType.ENUM({ values: Object.values(Gender) }),

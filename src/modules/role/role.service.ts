@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RoleName } from 'src/types/common.types';
 import { Role } from 'src/models';
+import { CreateRoleDto } from './dto/create.dto';
 
 @Injectable()
 export class RoleService {
@@ -13,11 +14,14 @@ export class RoleService {
     return this.roleRepository.findOne({ where: { name } });
   }
 
-  getByLevel(level: number) {
-    return this.roleRepository.findOne({ where: { level } });
-  }
-
   getById(id: number) {
     return this.roleRepository.findByPk(id);
+  }
+
+  findOrCreate(dto: CreateRoleDto) {
+    return this.roleRepository.findOrCreate({
+      where: { name: dto.name },
+      defaults: dto,
+    });
   }
 }
