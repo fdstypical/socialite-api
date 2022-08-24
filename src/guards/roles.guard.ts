@@ -1,5 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { ErrorMessage } from 'src/core/constants/error.messages';
+import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { ROLES_KEY } from 'src/decorators/roles.decorator';
 import { RoleService } from 'src/modules/role/role.service';
@@ -32,7 +34,14 @@ export class RolesGuard implements CanActivate {
     userRoleId: number,
   ): Promise<boolean> {
     const userRole = await this.roleService.getById(userRoleId);
-    if (!userRole) return false;
-    return requiredRoles.includes(userRole.name);
+
+    if (!userRole)
+      throw new ForbiddenException(ErrorMessage.Forbidden, 'No such role');
+
+    if (requiredRoles.includes(userRole.name)) {
+      return true;
+    }
+
+    throw new ForbiddenException(ErrorMessage.Forbidden, 'Not enough rights');
   }
 }

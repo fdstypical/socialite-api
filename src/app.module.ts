@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE, APP_FILTER } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 
@@ -14,6 +14,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
+import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.filter';
 
 @Module({
   imports: [
@@ -46,6 +47,10 @@ import { ValidationPipe } from './pipes/validation.pipe';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
     },
   ],
 })

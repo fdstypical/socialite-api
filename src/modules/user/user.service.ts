@@ -4,7 +4,6 @@ import { Role, User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
 import { RoleService } from '../role/role.service';
 import { CreateUserDto } from './dtos/create.dto';
-import { BaseExceptionFactory } from 'src/factories/exception.factories/base.exception.vactory';
 
 @Injectable()
 export class UserService {

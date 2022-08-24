@@ -1,14 +1,16 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcryptjs';
+import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
+import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
+import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
 import { User } from 'src/models';
 import { Constants } from 'src/constants/app.constants';
-import { BaseExceptionFactory } from 'src/factories/exception.factories/base.exception.vactory';
-import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
-import { ErrorMessage } from 'src/constants/error.messages';
+import { ErrorMessage } from 'src/core/constants/error.messages';
 import { CreateUserDto } from '../user/dtos/create.dto';
 import { UserService } from '../user/user.service';
 import { LoginDto } from './dtos/login.dto';
+import { UnauthorizedException } from 'src/core/exceptions/build-in/unauthorized.exception';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +41,10 @@ export class AuthService {
 
   async refresh(refresh: string) {
     if (!refresh)
-      throw BaseExceptionFactory(HttpStatus.FORBIDDEN, ErrorMessage.Forbidden);
+      throw new BadRequestException(
+        ErrorMessage.BadRequest,
+        'Refresh token not passed',
+      );
 
     const token = await this.jwtService.verifyAsync(
       refresh || '',
@@ -49,7 +54,10 @@ export class AuthService {
     const user = await this.userService.getById(token.id);
 
     if (!user)
-      throw BaseExceptionFactory(HttpStatus.FORBIDDEN, ErrorMessage.Forbidden);
+      throw new ForbiddenException(
+        ErrorMessage.Forbidden,
+        `User with id: ${token.id} not found`,
+      );
 
     return this.generateTokens(user);
   }
@@ -74,9 +82,9 @@ export class AuthService {
     );
 
     if (!passwordsEquals || !user)
-      throw BaseExceptionFactory(
-        HttpStatus.UNAUTHORIZED,
+      throw new UnauthorizedException(
         ErrorMessage.Unauthorized,
+        'Invalid token',
       );
 
     return user;

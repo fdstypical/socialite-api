@@ -2,7 +2,10 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
+import { UnauthorizedException } from 'src/core/exceptions/build-in/unauthorized.exception';
 import { Constants } from 'src/constants/app.constants';
+import { ErrorMessage } from 'src/core/constants/error.messages';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { IS_PUBLIC_KEY } from 'src/decorators/public-controller.decorator';
 
@@ -29,14 +32,23 @@ export class AuthGuard implements CanActivate {
       const authHeader = request.headers.authorization;
       const [tokenType, token] = authHeader?.split(' ') || [];
 
-      if (tokenType !== Constants.TOKEN_TYPE || !token) return false;
+      if (tokenType !== Constants.TOKEN_TYPE || !token)
+        throw new UnauthorizedException(
+          ErrorMessage.Unauthorized,
+          'Token not passed',
+        );
 
       const payload = await this.jwtService.verifyAsync(token);
       this.asyncContext.set('user', payload);
 
       return true;
-    } catch (error) {
-      return false;
+    } catch (exception) {
+      if (exception instanceof UnauthorizedException) throw exception;
+
+      throw new ForbiddenException(
+        ErrorMessage.Forbidden,
+        'Token ferification failed',
+      );
     }
   }
 }

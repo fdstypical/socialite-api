@@ -1,5 +1,7 @@
 import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
+import { ErrorMessage } from 'src/core/constants/error.messages';
 import { IsPublic } from 'src/decorators/public-controller.decorator';
 import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
 import { DateService } from 'src/core/modules/shared/services/date.service';
@@ -58,6 +60,13 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const { refresh: token } = request.cookies;
+
+    if (!token)
+      throw new BadRequestException(
+        ErrorMessage.BadRequest,
+        'Refresh token not passed',
+      );
+
     const { access, refresh } = await this.authService.refresh(token);
 
     response.cookie('refresh', refresh, {
