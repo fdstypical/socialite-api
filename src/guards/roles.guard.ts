@@ -35,9 +35,6 @@ export class RolesGuard implements CanActivate {
   ): Promise<boolean> {
     const userRole = await this.roleService.getById(userRoleId);
 
-    if (!userRole)
-      throw new ForbiddenException(ErrorMessage.Forbidden, 'No such role');
-
     if (requiredRoles.includes(userRole.name)) {
       return true;
     }

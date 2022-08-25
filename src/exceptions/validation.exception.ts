@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { ValidationError } from 'src/types/validation.types';
+import { ValidationError } from 'src/exceptions/types/validation.types';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 import { AbstractException } from 'src/core/exceptions/abstract.exception';
 

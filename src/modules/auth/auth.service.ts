@@ -40,25 +40,12 @@ export class AuthService {
   }
 
   async refresh(refresh: string) {
-    if (!refresh)
-      throw new BadRequestException(
-        ErrorMessage.BadRequest,
-        'Refresh token not passed',
-      );
-
     const token = await this.jwtService.verifyAsync(
       refresh || '',
       this.configService.JwtRefreshConfig,
     );
 
     const user = await this.userService.getById(token.id);
-
-    if (!user)
-      throw new ForbiddenException(
-        ErrorMessage.Forbidden,
-        `User with id: ${token.id} not found`,
-      );
-
     return this.generateTokens(user);
   }
 
@@ -76,12 +63,9 @@ export class AuthService {
 
   private async validateUser(dto: LoginDto) {
     const user = await this.userService.getByEmail(dto.email);
-    const passwordsEquals = await bcrypt.compare(
-      dto.password,
-      user?.password || '',
-    );
+    const passwordsEquals = await bcrypt.compare(dto.password, user.password);
 
-    if (!passwordsEquals || !user)
+    if (!passwordsEquals)
       throw new UnauthorizedException(
         ErrorMessage.Unauthorized,
         'Invalid token',

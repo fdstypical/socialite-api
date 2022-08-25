@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { ErrorMessage } from 'src/core/constants/error.messages';
+import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
 import { Role, User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
 import { RoleService } from '../role/role.service';
@@ -17,11 +19,23 @@ export class UserService {
   }
 
   async getByEmail(email: string) {
-    return this.userRepository.findOne({ where: { email }, include: [Role] });
+    return this.userRepository.findOne({
+      where: { email },
+      include: [Role],
+      rejectOnEmpty: new BadRequestException(
+        ErrorMessage.BadRequest,
+        'No such user',
+      ),
+    });
   }
 
   async getById(id: number) {
-    return this.userRepository.findByPk(id);
+    return this.userRepository.findByPk(id, {
+      rejectOnEmpty: new BadRequestException(
+        ErrorMessage.BadRequest,
+        'No such user',
+      ),
+    });
   }
 
   async create(dto: CreateUserDto) {
