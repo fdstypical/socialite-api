@@ -1,0 +1,47 @@
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { ErrorMessage } from 'src/core/constants/error.messages';
+import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
+import { AsyncContext } from 'src/core/modules/async-context/async-context';
+import { ROLES_KEY } from 'src/decorators/roles.decorator';
+import { RoleService } from 'src/modules/role/role.service';
+import { RoleName } from 'src/types/common.types';
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly roleService: RoleService,
+    private readonly asyncContext: AsyncContext<string, any>,
+  ) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const roles = this.reflector.getAllAndOverride<RoleName[]>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (!roles || !roles.length) return true;
+
+    return this.matchRoles(
+      roles,
+      this.asyncContext.get('user').roleId as number,
+    );
+  }
+
+  private async matchRoles(
+    requiredRoles: RoleName[],
+    userRoleId: number,
+  ): Promise<boolean> {
+    const userRole = await this.roleService.getById(
+      userRoleId,
+      new ForbiddenException(ErrorMessage.Forbidden, 'Unknown role'),
+    );
+
+    if (requiredRoles.includes(userRole.name)) {
+      return true;
+    }
+
+    throw new ForbiddenException(ErrorMessage.Forbidden, 'Not enough rights');
+  }
+}
