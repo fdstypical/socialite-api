@@ -33,7 +33,10 @@ export class RolesGuard implements CanActivate {
     requiredRoles: RoleName[],
     userRoleId: number,
   ): Promise<boolean> {
-    const userRole = await this.roleService.getById(userRoleId);
+    const userRole = await this.roleService.getById(
+      userRoleId,
+      new ForbiddenException(ErrorMessage.Forbidden, 'Unknown role'),
+    );
 
     if (requiredRoles.includes(userRole.name)) {
       return true;

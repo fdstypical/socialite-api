@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcryptjs';
-import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
-import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
+import { UnauthorizedException } from 'src/core/exceptions/build-in/unauthorized.exception';
 import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
 import { User } from 'src/models';
 import { Constants } from 'src/constants/app.constants';
@@ -10,7 +9,6 @@ import { ErrorMessage } from 'src/core/constants/error.messages';
 import { CreateUserDto } from '../user/dtos/create.dto';
 import { UserService } from '../user/user.service';
 import { LoginDto } from './dtos/login.dto';
-import { UnauthorizedException } from 'src/core/exceptions/build-in/unauthorized.exception';
 
 @Injectable()
 export class AuthService {
@@ -45,7 +43,13 @@ export class AuthService {
       this.configService.JwtRefreshConfig,
     );
 
-    const user = await this.userService.getById(token.id);
+    const user = await this.userService.getById(
+      token.id,
+      new UnauthorizedException(
+        ErrorMessage.Unauthorized,
+        'Refreshing by token data failed',
+      ),
+    );
     return this.generateTokens(user);
   }
 
@@ -62,7 +66,13 @@ export class AuthService {
   }
 
   private async validateUser(dto: LoginDto) {
-    const user = await this.userService.getByEmail(dto.email);
+    const user = await this.userService.getByEmail(
+      dto.email,
+      new UnauthorizedException(
+        ErrorMessage.Unauthorized,
+        'User with this email does not exist',
+      ),
+    );
     const passwordsEquals = await bcrypt.compare(dto.password, user.password);
 
     if (!passwordsEquals)

@@ -18,23 +18,21 @@ export class UserService {
     return this.userRepository.findAll({ include: [Role] });
   }
 
-  async getByEmail(email: string) {
+  async getByEmail(email: string, rejectOnEmpty?: Error) {
     return this.userRepository.findOne({
       where: { email },
       include: [Role],
-      rejectOnEmpty: new BadRequestException(
-        ErrorMessage.BadRequest,
-        'No such user',
-      ),
+      rejectOnEmpty:
+        rejectOnEmpty ??
+        new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
     });
   }
 
-  async getById(id: number) {
+  async getById(id: number, rejectOnEmpty?: Error) {
     return this.userRepository.findByPk(id, {
-      rejectOnEmpty: new BadRequestException(
-        ErrorMessage.BadRequest,
-        'No such user',
-      ),
+      rejectOnEmpty:
+        rejectOnEmpty ??
+        new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
     });
   }
 

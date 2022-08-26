@@ -12,22 +12,20 @@ export class RoleService {
     @InjectModel(Role) private readonly roleRepository: typeof Role,
   ) {}
 
-  getByName(name: RoleName) {
+  getByName(name: RoleName, rejectOnEmpty?: Error) {
     return this.roleRepository.findOne({
       where: { name },
-      rejectOnEmpty: new BadRequestException(
-        ErrorMessage.BadRequest,
-        'No such role',
-      ),
+      rejectOnEmpty:
+        rejectOnEmpty ??
+        new BadRequestException(ErrorMessage.BadRequest, 'No such role'),
     });
   }
 
-  getById(id: number) {
+  getById(id: number, rejectOnEmpty?: Error) {
     return this.roleRepository.findByPk(id, {
-      rejectOnEmpty: new BadRequestException(
-        ErrorMessage.BadRequest,
-        'No such role',
-      ),
+      rejectOnEmpty:
+        rejectOnEmpty ??
+        new BadRequestException(ErrorMessage.BadRequest, 'No such role'),
     });
   }
 
