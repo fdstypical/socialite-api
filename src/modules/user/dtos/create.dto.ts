@@ -32,7 +32,6 @@ export class CreateUserDto {
   readonly password: string;
 
   @IsEnum(Gender, {
-    each: true,
     message: ValidationErrorMessage.MUST_BE_ENUM,
     context: {
       availableValues: Object.values(Gender),
