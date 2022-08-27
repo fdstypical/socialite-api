@@ -1,14 +1,12 @@
-import {Body, Controller, Post, Req, Res, UseGuards} from '@nestjs/common';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
-import { ErrorMessage } from 'src/core/constants/error.messages';
-import { IsPublic } from 'src/decorators/public-controller.decorator';
 import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
 import { DateService } from 'src/core/modules/shared/services/date.service';
+import { IsPublic } from 'src/decorators/public-controller.decorator';
+import { RefreshGuard } from 'src/guards/refresh.guard';
 import { CreateUserDto } from '../user/dtos/create.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
-import {RefreshGuard} from "../../guards/refresh.guard";
 
 @IsPublic()
 @Controller('auth')
@@ -62,7 +60,6 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const { refresh: token } = request.cookies;
-
     const { access, refresh } = await this.authService.refresh(token);
 
     response.cookie('refresh', refresh, {

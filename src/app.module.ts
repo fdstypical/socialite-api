@@ -15,7 +15,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.filter';
-import { RefreshGuard } from './guards/refresh.guard';
 
 @Module({
   imports: [
@@ -44,10 +43,6 @@ import { RefreshGuard } from './guards/refresh.guard';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: RefreshGuard,
     },
     {
       provide: APP_PIPE,

@@ -26,7 +26,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
       ...response,
       timestamp,
       path,
-      appeal: 'Client developer, don`t be gay, plaese',
     };
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
