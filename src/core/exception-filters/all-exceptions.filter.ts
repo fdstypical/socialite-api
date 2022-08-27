@@ -17,7 +17,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
 
     const httpStatus = this.getStatus(exception);
-    const path = httpAdapter.getRequestUrl(ctx.getRequest());
+    const path = httpAdapter.getRequestUrl(ctx.getRequest<Request>());
     const timestamp = new Date().toISOString();
     const response = this.getResponse(exception);
 
@@ -26,6 +26,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       ...response,
       timestamp,
       path,
+      appeal: 'Client developer, don`t be gay, plaese',
     };
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
