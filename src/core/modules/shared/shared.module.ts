@@ -3,7 +3,7 @@ import { DynamicModule } from '@nestjs/common';
 
 import { ApiConfigService } from './services/api-config.service';
 import { DateService } from './services/date.service';
-import { UuidService } from './services/uuid.service';
+import { GeneratorService } from './services/generator.service';
 
 interface SharedModuleOptions {
   isGlobal?: boolean;
@@ -12,7 +12,7 @@ interface SharedModuleOptions {
 export class SharedModule {
   static forRoot(options?: SharedModuleOptions): DynamicModule {
     const isGlobal = options?.isGlobal ?? false;
-    const providers = [ApiConfigService, DateService, UuidService];
+    const providers = [ApiConfigService, DateService, GeneratorService];
 
     return {
       module: SharedModule,
