@@ -16,6 +16,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.filter';
+import { InterestsModule } from './modules/interests/interests.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.fil
     RoleModule,
     AuthModule,
     UploadModule,
+    InterestsModule,
   ],
   providers: [
     UniqueValidator,

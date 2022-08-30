@@ -6,6 +6,8 @@ import { SharedModule } from 'src/core/modules/shared/shared.module';
 import { UploadController } from './upload.controller';
 import { UploadService } from './upload.service';
 import { MulterAdapter } from './utils/multer.adapter';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { StaticFieldModel } from '../../models/StaticField/staticFieldModel';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { MulterAdapter } from './utils/multer.adapter';
       ) => MulterAdapter(configService, generatorService),
       inject: [ApiConfigService, GeneratorService],
     }),
+    SequelizeModule.forFeature([StaticFieldModel]),
   ],
   providers: [UploadService],
   controllers: [UploadController],
