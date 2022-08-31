@@ -1,28 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { StaticFieldModel } from '../../models/StaticField/staticFieldModel';
-import { CreateStaticFieldAttrs } from '../../models/StaticField/interfaces';
 import { InjectModel } from '@nestjs/sequelize';
+import { CreateStaticFieldAttrs } from 'src/models/StaticField/interfaces';
+import { StaticField } from 'src/models';
 
 @Injectable()
 export class UploadService {
   constructor(
-    @InjectModel(StaticFieldModel)
-    private readonly staticRepository: typeof StaticFieldModel,
+    @InjectModel(StaticField)
+    private readonly staticRepository: typeof StaticField,
   ) {}
 
-  async create(staticField: CreateStaticFieldAttrs) {
-    return await this.staticRepository.create(staticField);
+  async create(dto: CreateStaticFieldAttrs) {
+    return this.staticRepository.create(dto);
   }
 
   async getById(id: number) {
-    return await this.staticRepository.findOne({ where: { id } });
+    return this.staticRepository.findOne({ where: { id } });
   }
 
-  async getByName(fileName: string) {
-    return await this.staticRepository.findOne({ where: { fileName } });
+  async getByName(name: string) {
+    return this.staticRepository.findOne({ where: { name } });
   }
 
   async delete(id: number) {
-    return await this.staticRepository.destroy({ where: { id } });
+    return this.staticRepository.destroy({ where: { id } });
   }
 }

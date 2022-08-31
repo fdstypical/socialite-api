@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { ApiConfigService } from 'src/core/modules/shared/services/api-config.service';
 import { GeneratorService } from 'src/core/modules/shared/services/generator.service';
 import { SharedModule } from 'src/core/modules/shared/shared.module';
 import { UploadController } from './upload.controller';
 import { UploadService } from './upload.service';
 import { MulterAdapter } from './utils/multer.adapter';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { StaticFieldModel } from '../../models/StaticField/staticFieldModel';
+import { StaticField } from 'src/models';
 
 @Module({
   imports: [
+    SequelizeModule.forFeature([StaticField]),
     MulterModule.registerAsync({
       imports: [SharedModule],
       useFactory: (
@@ -19,7 +20,6 @@ import { StaticFieldModel } from '../../models/StaticField/staticFieldModel';
       ) => MulterAdapter(configService, generatorService),
       inject: [ApiConfigService, GeneratorService],
     }),
-    SequelizeModule.forFeature([StaticFieldModel]),
   ],
   providers: [UploadService],
   controllers: [UploadController],

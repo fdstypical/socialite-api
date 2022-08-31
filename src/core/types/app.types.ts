@@ -1,5 +1,6 @@
 export interface AppConfig {
   port: number;
+  baseUrl: string;
 }
 
 export interface Type<T = any> extends Function {

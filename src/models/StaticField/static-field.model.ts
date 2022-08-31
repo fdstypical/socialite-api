@@ -1,5 +1,4 @@
-import { Column, DataType, Table } from 'sequelize-typescript';
-import { Model } from 'sequelize';
+import { Model, Column, DataType, Table } from 'sequelize-typescript';
 import { CreateStaticFieldAttrs } from './interfaces';
 
 @Table({
@@ -8,10 +7,7 @@ import { CreateStaticFieldAttrs } from './interfaces';
   createdAt: true,
   updatedAt: false,
 })
-export class StaticFieldModel extends Model<
-  StaticFieldModel,
-  CreateStaticFieldAttrs
-> {
+export class StaticField extends Model<StaticField, CreateStaticFieldAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -24,17 +20,17 @@ export class StaticFieldModel extends Model<
     type: DataType.STRING,
     allowNull: false,
   })
-  readonly fileName: number;
+  readonly name: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  readonly type: number;
+  readonly type: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  readonly url: number;
+  readonly url: string;
 }

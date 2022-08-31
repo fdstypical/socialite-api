@@ -55,9 +55,10 @@ export class ApiConfigService {
     return this.getString('NODE_ENV');
   }
 
-  get appConfig(): AppConfig {
+  get AppConfig(): AppConfig {
     return {
       port: this.getNumber('PORT'),
+      baseUrl: this.getString('BASE_URL'),
     };
   }
 
