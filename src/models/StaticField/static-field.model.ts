@@ -26,6 +26,12 @@ export class StaticField extends Model<StaticField, CreateStaticFieldAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
+  readonly originalname: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   readonly type: string;
 
   @Column({

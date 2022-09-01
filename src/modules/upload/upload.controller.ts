@@ -21,11 +21,11 @@ export class UploadController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   public async upload(@UploadedFile() file: Express.Multer.File) {
-    const { filename: name, mimetype: type, path } = file;
+    const { filename: name, mimetype: type, path, originalname } = file;
     const { href: url } = this.urlService.createUri(
       this.configService.AppConfig.baseUrl,
       path,
     );
-    return this.uploadService.create({ name, type, url });
+    return this.uploadService.create({ name, originalname, type, url });
   }
 }
