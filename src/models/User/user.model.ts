@@ -7,7 +7,7 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
-import { Role } from '../Role/role.model';
+import { Role } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
 
 @Table({

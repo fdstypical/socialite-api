@@ -8,5 +8,6 @@ export enum ValidationErrorMessage {
   MUST_BE_EMAIL = 'must.be.email',
   MUST_BE_LONGER = 'must.be.longer',
   MUST_BE_NUMBER = 'must.be.number',
+  MUST_BE_INTEGER = 'must.be.integer',
   MUST_BE_ENUM = 'must.be.enum',
 }

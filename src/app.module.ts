@@ -13,6 +13,7 @@ import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { InterestModule } from './modules/interest/interest.module';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
@@ -35,6 +36,7 @@ import { ValidationPipe } from './pipes/validation.pipe';
     RoleModule,
     AuthModule,
     UploadModule,
+    InterestModule,
   ],
   providers: [
     UniqueValidator,
