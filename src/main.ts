@@ -16,7 +16,7 @@ async function bootstrap(): Promise<NestExpressApplication> {
   );
 
   const configService = app.select(SharedModule).get(ApiConfigService);
-  const { port } = configService.appConfig;
+  const { port } = configService.AppConfig;
 
   app.use(cookieParser());
   app.setGlobalPrefix('api');

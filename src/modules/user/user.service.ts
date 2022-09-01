@@ -42,6 +42,6 @@ export class UserService {
   }
 
   private async findOrCreateRole(roleName: RoleName) {
-    return await this.roleService.findOrCreate({ name: roleName });
+    return this.roleService.findOrCreate({ name: roleName });
   }
 }

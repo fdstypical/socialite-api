@@ -5,16 +5,17 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { AsyncContextModule } from './core/modules/async-context/async-context.module';
 import { AsyncContextMiddleware } from './core/middlewares/async-context.middleware';
+import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.filter';
 import { ApiConfigService } from './core/modules/shared/services/api-config.service';
 import { UniqueValidator } from './core/validators/unique.validator';
 import { SharedModule } from './core/modules/shared/shared.module';
 import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { UploadModule } from './modules/upload/upload.module';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
-import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.filter';
 
 @Module({
   imports: [
@@ -27,12 +28,13 @@ import { AllExceptionsFilter } from './core/exception-filters/all-exceptions.fil
     SequelizeModule.forRootAsync({
       imports: [SharedModule],
       useFactory: (configService: ApiConfigService) =>
-        configService.postgresConfig,
+        configService.PostgresConfig,
       inject: [ApiConfigService],
     }),
     UserModule,
     RoleModule,
     AuthModule,
+    UploadModule,
   ],
   providers: [
     UniqueValidator,

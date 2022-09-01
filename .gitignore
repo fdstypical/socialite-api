@@ -1,5 +1,8 @@
 .*.env
 
+# static
+/static
+
 # compiled output
 /dist
 /node_modules

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { SequelizeModuleOptions } from '@nestjs/sequelize';
+import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { JwtModuleOptions, JwtSignOptions } from '@nestjs/jwt';
 import { Dialect } from 'sequelize/types/sequelize';
 import { ModelOptions } from 'sequelize/types';
@@ -54,13 +55,14 @@ export class ApiConfigService {
     return this.getString('NODE_ENV');
   }
 
-  get appConfig(): AppConfig {
+  get AppConfig(): AppConfig {
     return {
       port: this.getNumber('PORT'),
+      baseUrl: this.getString('BASE_URL'),
     };
   }
 
-  get postgresConfig(): SequelizeModuleOptions {
+  get PostgresConfig(): SequelizeModuleOptions {
     const { dialect, define } = ApiConfigService;
 
     return {
@@ -96,6 +98,12 @@ export class ApiConfigService {
     return {
       secret: this.getString('JWT_REFRESH_SECRET'),
       expiresIn: this.getString('JWT_REFRESH_EXPIRES_IN'),
+    };
+  }
+
+  get MulterConfig(): MulterOptions {
+    return {
+      dest: this.getString('MULTER_DEST'),
     };
   }
 
