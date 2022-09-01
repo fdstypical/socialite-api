@@ -50,6 +50,6 @@ export class User extends Model<User, UserCreationAttributes> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   readonly roleId: number;
 
-  @BelongsTo(() => Role)
+  @BelongsTo(() => Role, 'roleId')
   readonly role: Role;
 }
