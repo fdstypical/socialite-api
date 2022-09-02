@@ -6,9 +6,10 @@ import {
   ForeignKey,
   BelongsTo,
   HasMany,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
-import { Interest, Role } from 'src/models';
+import { Interest, Role, UserInterest } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
 
 @Table({
@@ -56,4 +57,7 @@ export class User extends Model<User, UserCreationAttributes> {
 
   @HasMany(() => Interest)
   readonly createdInterests: Interest[];
+
+  @BelongsToMany(() => Interest, () => UserInterest, 'interestId')
+  readonly interests: Interest[];
 }

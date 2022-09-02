@@ -15,7 +15,13 @@ export class UserService {
   ) {}
 
   async getAll() {
-    return this.userRepository.findAll({ include: [Role, Interest] });
+    return this.userRepository.findAll({
+      include: [
+        Role,
+        { model: Interest, as: 'createdInterests' },
+        { model: Interest, as: 'interests' },
+      ],
+    });
   }
 
   async getByEmail(email: string, rejectOnEmpty?: Error) {

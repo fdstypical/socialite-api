@@ -15,7 +15,9 @@ export class InterestService {
   ) {}
 
   async getAll() {
-    return this.interestRepository.findAll({ include: [StaticField, User] });
+    return this.interestRepository.findAll({
+      include: { all: true },
+    });
   }
 
   async getById(id: number, rejectOnEmpty?: Error) {
@@ -23,7 +25,7 @@ export class InterestService {
       include: [StaticField],
       rejectOnEmpty:
         rejectOnEmpty ??
-        new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
+        new BadRequestException(ErrorMessage.BadRequest, 'No such interest'),
     });
   }
 
