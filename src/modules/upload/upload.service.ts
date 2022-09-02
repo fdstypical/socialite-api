@@ -15,7 +15,7 @@ export class UploadService {
   }
 
   async getById(id: number) {
-    return this.staticRepository.findOne({ where: { id } });
+    return this.staticRepository.findByPk(id);
   }
 
   async getByName(name: string) {

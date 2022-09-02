@@ -4,6 +4,7 @@ import {
   Model,
   DataType,
   BelongsTo,
+  ForeignKey,
 } from 'sequelize-typescript';
 import { CreateInterestDto } from 'src/modules/interest/dtos/create.dto';
 import { StaticField } from 'src/models';
@@ -29,6 +30,10 @@ export class Interest extends Model<Interest, CreateInterestDto> {
     defaultValue: null,
   })
   readonly description: string | null;
+
+  @ForeignKey(() => StaticField)
+  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
+  readonly previewId: number;
 
   @BelongsTo(() => StaticField, 'previewId')
   readonly preview: StaticField;
