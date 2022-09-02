@@ -24,6 +24,11 @@ module.exports = {
         references: { model: 'static_field', key: 'id' },
         onDelete: 'CASCADE',
       },
+      createdByUserId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' },
+      },
     });
   },
 

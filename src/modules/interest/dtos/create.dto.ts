@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString, Min } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 import { ValidationErrorMessage } from 'src/constants/error.messages';
 
 export class CreateInterestDto {

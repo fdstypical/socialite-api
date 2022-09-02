@@ -12,7 +12,7 @@ import {
 import { CreateInterestDto } from './dtos/create.dto';
 import { InterestService } from './interest.service';
 import { UpdateInterestDto } from './dtos/update.dto';
-import { CheckCreatorGuard } from '../../guards/check-creator.guard';
+import { CheckCreatorGuard } from 'src/guards/check-creator.guard';
 
 @Controller('interests')
 export class InterestController {
@@ -34,6 +34,7 @@ export class InterestController {
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateInterestDto,
   ) {
+    delete (dto as any).id;
     return this.interestService.update(id, dto);
   }
 

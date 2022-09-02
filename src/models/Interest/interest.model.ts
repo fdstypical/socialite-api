@@ -6,11 +6,11 @@ import {
   BelongsTo,
   ForeignKey,
 } from 'sequelize-typescript';
-import { CreateInterestDto } from 'src/modules/interest/dtos/create.dto';
-import { StaticField } from 'src/models';
+import { StaticField, User } from 'src/models';
+import { CreateInterestAttributes } from './interfaces';
 
 @Table({ tableName: 'interests' })
-export class Interest extends Model<Interest, CreateInterestDto> {
+export class Interest extends Model<Interest, CreateInterestAttributes> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -37,4 +37,11 @@ export class Interest extends Model<Interest, CreateInterestDto> {
 
   @BelongsTo(() => StaticField, 'previewId')
   readonly preview: StaticField;
+
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  readonly createdByUserId: number;
+
+  @BelongsTo(() => User, 'createdByUserId')
+  readonly creator: User;
 }

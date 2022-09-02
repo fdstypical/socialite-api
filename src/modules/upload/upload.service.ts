@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateStaticFieldAttrs } from 'src/models/StaticField/interfaces';
+import { CreateStaticFieldAttributes } from 'src/models/StaticField/interfaces';
 import { StaticField } from 'src/models';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class UploadService {
     private readonly staticRepository: typeof StaticField,
   ) {}
 
-  async create(dto: CreateStaticFieldAttrs) {
+  async create(dto: CreateStaticFieldAttributes) {
     return this.staticRepository.create(dto);
   }
 
