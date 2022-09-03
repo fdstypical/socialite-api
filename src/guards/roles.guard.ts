@@ -4,14 +4,12 @@ import { ErrorMessage } from 'src/core/constants/error.messages';
 import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { ROLES_KEY } from 'src/decorators/roles.decorator';
-import { RoleService } from 'src/modules/role/role.service';
 import { RoleName } from 'src/types/common.types';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly roleService: RoleService,
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 

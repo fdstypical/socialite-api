@@ -5,14 +5,16 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
-  Put,
   UseGuards,
 } from '@nestjs/common';
 import { CreateInterestDto } from './dtos/create.dto';
 import { InterestService } from './interest.service';
 import { UpdateInterestDto } from './dtos/update.dto';
 import { CheckCreatorGuard } from 'src/guards/check-creator.guard';
+import { IsModel } from 'src/decorators/is-model.decorator';
+import { Interest } from 'src/models';
 
 @Controller('interests')
 export class InterestController {
@@ -28,13 +30,15 @@ export class InterestController {
     return this.interestService.getById(id);
   }
 
+  @IsModel(Interest)
   @UseGuards(CheckCreatorGuard)
-  @Put(':id')
+  @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateInterestDto,
   ) {
     delete (dto as any).id;
+    delete (dto as any).createdByUserId;
     return this.interestService.update(id, dto);
   }
 
