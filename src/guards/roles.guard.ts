@@ -23,22 +23,14 @@ export class RolesGuard implements CanActivate {
 
     if (!roles || !roles.length) return true;
 
-    return this.matchRoles(
-      roles,
-      this.asyncContext.get('user').roleId as number,
-    );
+    return this.matchRoles(roles, this.asyncContext.get('user').roleName);
   }
 
   private async matchRoles(
     requiredRoles: RoleName[],
-    userRoleId: number,
+    userRole: RoleName,
   ): Promise<boolean> {
-    const userRole = await this.roleService.getById(
-      userRoleId,
-      new ForbiddenException(ErrorMessage.Forbidden, 'Unknown role'),
-    );
-
-    if (requiredRoles.includes(userRole.name)) {
+    if (requiredRoles.includes(userRole)) {
       return true;
     }
 
