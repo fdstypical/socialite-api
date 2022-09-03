@@ -46,6 +46,6 @@ export class Interest extends Model<Interest, CreateInterestAttributes> {
   @BelongsTo(() => User, 'createdByUserId')
   readonly creator: User;
 
-  @BelongsToMany(() => User, () => UserInterest, 'userId')
+  @BelongsToMany(() => User, () => UserInterest)
   readonly users: User[];
 }

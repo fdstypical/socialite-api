@@ -1,10 +1,10 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { CreateRoleDto } from 'src/modules/role/dto/create.dto';
 import { RoleName } from 'src/types/common.types';
-import { User } from '../User/user.model';
+import { User } from 'src/models';
+import { CreateRoleAttributes } from './interfaces';
 
 @Table({ tableName: 'roles' })
-export class Role extends Model<Role, CreateRoleDto> {
+export class Role extends Model<Role, CreateRoleAttributes> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

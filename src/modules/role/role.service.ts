@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RoleName } from 'src/types/common.types';
 import { Role } from 'src/models';
-import { CreateRoleDto } from './dto/create.dto';
+import { CreateRoleAttributes } from 'src/models/Role/interfaces';
 import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 
@@ -29,7 +29,7 @@ export class RoleService {
     });
   }
 
-  findOrCreate(dto: CreateRoleDto) {
+  findOrCreate(dto: CreateRoleAttributes) {
     return this.roleRepository.findOrCreate({
       where: { name: dto.name },
       defaults: dto,
