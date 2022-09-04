@@ -9,7 +9,7 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
-import { Interest, Role, UserInterest } from 'src/models';
+import { Interest, Role, StaticField, UserInterest } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
 
 @Table({
@@ -60,4 +60,11 @@ export class User extends Model<User, UserCreationAttributes> {
 
   @BelongsToMany(() => Interest, () => UserInterest)
   readonly interests: Interest[];
+
+  @ForeignKey(() => StaticField)
+  @Column({ type: DataType.INTEGER, defaultValue: null })
+  readonly avatarId: number;
+
+  @BelongsTo(() => StaticField)
+  readonly avatar: StaticField;
 }

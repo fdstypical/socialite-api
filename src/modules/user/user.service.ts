@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
-import { Interest, Role, User } from 'src/models';
+import { Interest, Role, StaticField, User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
 import { RoleService } from '../role/role.service';
 import { UserInterestService } from '../user-interest/user-interest.service';
@@ -24,6 +24,7 @@ export class UserService {
         Role,
         { model: Interest, as: 'createdInterests' },
         { model: Interest, as: 'interests' },
+        { model: StaticField, as: 'avatar' },
       ],
     });
   }
