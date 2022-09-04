@@ -53,8 +53,12 @@ export class AuthService {
     return this.generateTokens(user);
   }
 
-  private generateTokens({ id, email, roleId }: User) {
-    const payload = { id, email, roleId };
+  private generateTokens({
+    id,
+    email,
+    role: { id: roleId, name: roleName },
+  }: User) {
+    const payload = { id, email, roleId, roleName };
 
     return {
       access: this.jwtService.sign(payload, this.configService.JwtAccessConfig),

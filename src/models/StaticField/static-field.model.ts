@@ -1,5 +1,5 @@
 import { Model, Column, DataType, Table } from 'sequelize-typescript';
-import { CreateStaticFieldAttrs } from './interfaces';
+import { CreateStaticFieldAttributes } from './interfaces';
 
 @Table({
   tableName: 'static_field',
@@ -7,7 +7,10 @@ import { CreateStaticFieldAttrs } from './interfaces';
   createdAt: true,
   updatedAt: false,
 })
-export class StaticField extends Model<StaticField, CreateStaticFieldAttrs> {
+export class StaticField extends Model<
+  StaticField,
+  CreateStaticFieldAttributes
+> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

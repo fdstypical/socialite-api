@@ -5,9 +5,11 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  HasMany,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
-import { Role } from '../Role/role.model';
+import { Interest, Role, StaticField, UserInterest } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
 
 @Table({
@@ -50,6 +52,19 @@ export class User extends Model<User, UserCreationAttributes> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   readonly roleId: number;
 
-  @BelongsTo(() => Role)
+  @BelongsTo(() => Role, 'roleId')
   readonly role: Role;
+
+  @HasMany(() => Interest)
+  readonly createdInterests: Interest[];
+
+  @BelongsToMany(() => Interest, () => UserInterest)
+  readonly interests: Interest[];
+
+  @ForeignKey(() => StaticField)
+  @Column({ type: DataType.INTEGER, defaultValue: null })
+  readonly avatarId: number;
+
+  @BelongsTo(() => StaticField)
+  readonly avatar: StaticField;
 }

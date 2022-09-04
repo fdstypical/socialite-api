@@ -3,7 +3,7 @@ import { registerDecorator, ValidationOptions } from 'class-validator';
 import {
   UniqueConstraintsArguments,
   AbstractUniueValidator,
-} from 'src/core/validators/abstract-unique.validator';
+} from 'src/core/abstracts/validators/abstract-unique.validator';
 export { UniqueValidator } from 'src/core/validators/unique.validator';
 
 export function IsUnique(
