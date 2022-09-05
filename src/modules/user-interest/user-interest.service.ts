@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { UserInterest } from 'src/models';
+import { CreateUserInterestAttributes } from '../../models/UserInterest/interfaces';
 
 @Injectable()
 export class UserInterestService {
@@ -9,7 +10,10 @@ export class UserInterestService {
     private readonly userInterestRepository: typeof UserInterest,
   ) {}
 
-  async addInterestToUser(userId: number, interestId: number) {
+  async addInterestToUser({
+    userId,
+    interestId,
+  }: CreateUserInterestAttributes) {
     return this.userInterestRepository.create({ userId, interestId });
   }
 }

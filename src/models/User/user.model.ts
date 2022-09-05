@@ -11,6 +11,7 @@ import {
 import { Gender } from 'src/types/common.types';
 import { Interest, Role, StaticField, UserInterest } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
+import { UserStaticField } from '../UserStaticField/UserStaticField.model';
 
 @Table({
   tableName: 'users',
@@ -48,6 +49,9 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   readonly gender: Gender;
 
+  @BelongsToMany(() => StaticField, () => UserStaticField)
+  readonly avatar: StaticField;
+
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })
   readonly roleId: number;
@@ -60,11 +64,4 @@ export class User extends Model<User, UserCreationAttributes> {
 
   @BelongsToMany(() => Interest, () => UserInterest)
   readonly interests: Interest[];
-
-  @ForeignKey(() => StaticField)
-  @Column({ type: DataType.INTEGER, defaultValue: null })
-  readonly avatarId: number;
-
-  @BelongsTo(() => StaticField)
-  readonly avatar: StaticField;
 }
