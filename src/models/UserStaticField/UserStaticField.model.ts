@@ -20,7 +20,7 @@ export class UserStaticField extends Model<
   CreateUserStaticFieldAttributes
 > {
   @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
   readonly userId: number;
 
   @ForeignKey(() => StaticField)

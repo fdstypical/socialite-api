@@ -7,6 +7,7 @@ import {
   BelongsTo,
   HasMany,
   BelongsToMany,
+  HasOne,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
 import { Interest, Role, StaticField, UserInterest } from 'src/models';
@@ -49,7 +50,7 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   readonly gender: Gender;
 
-  @BelongsToMany(() => StaticField, () => UserStaticField)
+  @HasOne(() => UserStaticField)
   readonly avatar: StaticField;
 
   @ForeignKey(() => Role)

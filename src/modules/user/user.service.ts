@@ -21,7 +21,7 @@ export class UserService {
   ) {}
 
   async getAll() {
-    return await this.userRepository.findAll({
+    return this.userRepository.findAll({
       include: [
         Role,
         { model: Interest, as: 'createdInterests' },
@@ -32,7 +32,7 @@ export class UserService {
   }
 
   async getByEmail(email: string, rejectOnEmpty?: Error) {
-    return await this.userRepository.findOne({
+    return this.userRepository.findOne({
       where: { email },
       include: [Role],
       rejectOnEmpty:
@@ -42,7 +42,7 @@ export class UserService {
   }
 
   async getById(id: number, rejectOnEmpty?: Error) {
-    return await this.userRepository.findByPk(id, {
+    return this.userRepository.findByPk(id, {
       rejectOnEmpty:
         rejectOnEmpty ??
         new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
@@ -51,7 +51,7 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     const [userRole] = await this.findOrCreateRole(RoleName.USER);
-    return await this.userRepository.create({ ...dto, roleId: userRole.id });
+    return this.userRepository.create({ ...dto, roleId: userRole.id });
   }
 
   async addInterest(id: number) {
@@ -64,13 +64,13 @@ export class UserService {
 
   async addAvatar(id: number) {
     const { id: userId } = this.asyncContext.get('user');
-    return await this.userStaticFieldService.addAvatarToUser({
+    return this.userStaticFieldService.addAvatarToUser({
       userId,
       staticFieldId: id,
     });
   }
 
   private async findOrCreateRole(roleName: RoleName) {
-    return await this.roleService.findOrCreate({ name: roleName });
+    return this.roleService.findOrCreate({ name: roleName });
   }
 }
