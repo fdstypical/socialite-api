@@ -24,6 +24,9 @@ export class UserStaticField extends Model<
   readonly userId: number;
 
   @ForeignKey(() => StaticField)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
   readonly staticFieldId: number;
+
+  @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
+  readonly isPrimary: boolean;
 }

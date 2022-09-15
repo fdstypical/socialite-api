@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { UserStaticField } from '../../models/UserStaticField/UserStaticField.model';
+import { UserStaticField } from '../../models/UserStaticField/user-static-field.model';
 import { CreateUserStaticFieldAttributes } from '../../models/UserStaticField/interfaces';
 
 @Injectable()

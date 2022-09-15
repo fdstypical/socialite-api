@@ -12,7 +12,7 @@ import {
 import { Gender } from 'src/types/common.types';
 import { Interest, Role, StaticField, UserInterest } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
-import { UserStaticField } from '../UserStaticField/UserStaticField.model';
+import { UserStaticField } from '../UserStaticField/user-static-field.model';
 
 @Table({
   tableName: 'users',
@@ -50,8 +50,8 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   readonly gender: Gender;
 
-  @HasOne(() => UserStaticField)
-  readonly avatar: StaticField;
+  @HasMany(() => UserStaticField)
+  readonly lifeScreens: UserStaticField;
 
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })
