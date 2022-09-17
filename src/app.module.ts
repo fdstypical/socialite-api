@@ -18,7 +18,7 @@ import { UserInterestModule } from './modules/user-interest/user-interest.module
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
-import { UserStaticFieldModule } from './modules/user-static-field/user-static-field.module';
+import { UserAvatarModule } from './modules/user-avatar/user-avatar.module';
 
 @Module({
   imports: [
@@ -40,7 +40,7 @@ import { UserStaticFieldModule } from './modules/user-static-field/user-static-f
     UploadModule,
     InterestModule,
     UserInterestModule,
-    UserStaticFieldModule,
+    UserAvatarModule,
   ],
   providers: [
     UniqueValidator,

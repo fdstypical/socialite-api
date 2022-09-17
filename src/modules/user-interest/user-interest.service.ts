@@ -10,7 +10,7 @@ export class UserInterestService {
     private readonly userInterestRepository: typeof UserInterest,
   ) {}
 
-  async addInterestToUser({
+  addInterestToUser({
     userId,
     interestId,
   }: CreateUserInterestAttributes) {

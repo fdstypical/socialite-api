@@ -20,4 +20,9 @@ export class UserController {
   addInterest(@Param('id') id: number) {
     return this.userService.addInterest(id);
   }
+
+  @Post('addAvatar/:id')
+  addAvatar(@Param('id') id: number) {
+    return this.userService.addAvatar(id);
+  }
 }
