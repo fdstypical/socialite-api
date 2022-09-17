@@ -13,6 +13,14 @@ export class UserInterest extends Model<
   UserInterest,
   CreateUserInterestAttributes
 > {
+  @Column({
+    type: DataType.INTEGER,
+    unique: true,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  readonly id: number;
+
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER, allowNull: false })
   readonly userId: number;

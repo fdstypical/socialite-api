@@ -10,9 +10,8 @@ import {
   HasOne,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
-import { Interest, Role, StaticField, UserInterest } from 'src/models';
+import { Interest, Role, UserInterest } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
-import { UserStaticField } from '../UserStaticField/user-static-field.model';
 
 @Table({
   tableName: 'users',
@@ -49,9 +48,6 @@ export class User extends Model<User, UserCreationAttributes> {
     allowNull: false,
   })
   readonly gender: Gender;
-
-  @HasMany(() => UserStaticField)
-  readonly lifeScreens: UserStaticField;
 
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })
