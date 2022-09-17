@@ -8,19 +8,30 @@ import { Constants } from 'src/constants/app.constants';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 import { CreateUserDto } from '../user/dtos/create.dto';
 import { UserService } from '../user/user.service';
+import { RoleService } from '../role/role.service';
 import { LoginDto } from './dtos/login.dto';
+import { TokenPayload } from './types';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
+    private readonly roleService: RoleService,
     private readonly jwtService: JwtService,
     private readonly configService: ApiConfigService,
   ) {}
 
   async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
-    return this.generateTokens(user);
+
+    const tokenPayload: TokenPayload = {
+      id: user.id,
+      email: user.email,
+      roleId: user.roleId,
+      roleName: user.role.name,
+    };
+
+    return this.generateTokens(tokenPayload);
   }
 
   async registration(dto: CreateUserDto) {
@@ -34,7 +45,16 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return this.generateTokens(user);
+    const role = await this.roleService.getById(user.roleId);
+
+    const tokenPayload: TokenPayload = {
+      id: user.id,
+      email: user.email,
+      roleId: role.id,
+      roleName: role.name,
+    };
+
+    return this.generateTokens(tokenPayload);
   }
 
   async refresh(refresh: string) {
@@ -50,16 +70,18 @@ export class AuthService {
         'Refreshing by token data failed',
       ),
     );
-    return this.generateTokens(user);
+
+    const tokenPayload: TokenPayload = {
+      id: user.id,
+      email: user.email,
+      roleId: user.roleId,
+      roleName: user.role.name,
+    };
+
+    return this.generateTokens(tokenPayload);
   }
 
-  private generateTokens({
-    id,
-    email,
-    role: { id: roleId, name: roleName },
-  }: User) {
-    const payload = { id, email, roleId, roleName };
-
+  private generateTokens(payload: TokenPayload) {
     return {
       access: this.jwtService.sign(payload, this.configService.JwtAccessConfig),
       refresh: this.jwtService.sign(
