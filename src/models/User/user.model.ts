@@ -10,7 +10,13 @@ import {
   HasOne,
 } from 'sequelize-typescript';
 import { Gender } from 'src/types/common.types';
-import { Interest, Role, UserAvatar, UserInterest } from 'src/models';
+import {
+  Interest,
+  Role,
+  UserAvatar,
+  UserInterest,
+  LifePhoto,
+} from 'src/models';
 import { UserCreationAttributes } from './interfaces';
 
 @Table({
@@ -64,4 +70,7 @@ export class User extends Model<User, UserCreationAttributes> {
 
   @HasOne(() => UserAvatar)
   readonly avatar: UserAvatar;
+
+  @HasMany(() => LifePhoto)
+  readonly lifePhotos: LifePhoto[];
 }

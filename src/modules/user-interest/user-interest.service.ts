@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { UserInterest } from 'src/models';
-import { CreateUserInterestAttributes } from '../../models/UserInterest/interfaces';
+import { CreateUserInterestAttributes } from 'src/models/UserInterest/interfaces';
 
 @Injectable()
 export class UserInterestService {

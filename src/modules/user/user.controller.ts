@@ -25,4 +25,9 @@ export class UserController {
   addAvatar(@Param('id') id: number) {
     return this.userService.addAvatar(id);
   }
+
+  @Post('addPhoto/:id')
+  addPhoto(@Param('id') id: number) {
+    return this.userService.addPhoto(id);
+  }
 }
