@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
-import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
+import { NotFoundException } from 'src/core/exceptions/build-in/not-found.exception';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 import { Interest, StaticField, User } from 'src/models';
 import { CreateInterestDto } from './dtos/create.dto';
@@ -25,7 +25,7 @@ export class InterestService {
       include: [StaticField],
       rejectOnEmpty:
         rejectOnEmpty ??
-        new BadRequestException(ErrorMessage.BadRequest, 'No such interest'),
+        new NotFoundException(ErrorMessage.NotFound, 'No such interest'),
     });
   }
 

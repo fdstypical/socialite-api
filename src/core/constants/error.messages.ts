@@ -10,4 +10,5 @@ export enum ErrorMessage {
   Unauthorized = 'error.unauthorized',
   Forbidden = 'error.forbidden',
   BadRequest = 'error.bad_request',
+  NotFound = 'error.not_found',
 }
