@@ -47,6 +47,8 @@ export class InterestController {
     return this.interestService.create(dto);
   }
 
+  @IsModel(Interest)
+  @UseGuards(CheckCreatorGuard)
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     return this.interestService.delete(id);
