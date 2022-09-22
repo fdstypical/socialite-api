@@ -21,17 +21,24 @@ export class AuthService {
     private readonly configService: ApiConfigService,
   ) {}
 
+  async createTokenPayload(dto: User): Promise<TokenPayload> {
+    const payload = {
+      id: dto.id,
+      email: dto.email,
+      roleId: dto.roleId,
+      roleName: dto.role.name,
+    };
+    if (!dto.role.name) {
+      const role = await this.roleService.getById(dto.roleId);
+      payload.roleName = role.name;
+    }
+    return payload;
+  }
+
   async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
 
-    const tokenPayload: TokenPayload = {
-      id: user.id,
-      email: user.email,
-      roleId: user.roleId,
-      roleName: user.role.name,
-    };
-
-    return this.generateTokens(tokenPayload);
+    return this.generateTokens(await this.createTokenPayload(user));
   }
 
   async registration(dto: CreateUserDto) {
@@ -45,16 +52,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const role = await this.roleService.getById(user.roleId);
-
-    const tokenPayload: TokenPayload = {
-      id: user.id,
-      email: user.email,
-      roleId: role.id,
-      roleName: role.name,
-    };
-
-    return this.generateTokens(tokenPayload);
+    return this.generateTokens(await this.createTokenPayload(user));
   }
 
   async refresh(refresh: string) {
@@ -71,14 +69,7 @@ export class AuthService {
       ),
     );
 
-    const tokenPayload: TokenPayload = {
-      id: user.id,
-      email: user.email,
-      roleId: user.roleId,
-      roleName: user.role.name,
-    };
-
-    return this.generateTokens(tokenPayload);
+    return this.generateTokens(await this.createTokenPayload(user));
   }
 
   private generateTokens(payload: TokenPayload) {
