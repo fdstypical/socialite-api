@@ -21,18 +21,9 @@ export class AuthService {
     private readonly configService: ApiConfigService,
   ) {}
 
-  async createTokenPayload(dto: User): Promise<TokenPayload> {
-    const payload = {
-      id: dto.id,
-      email: dto.email,
-      roleId: dto.roleId,
-      roleName: dto.role.name,
-    };
-    if (!dto.role.name) {
-      const role = await this.roleService.getById(dto.roleId);
-      payload.roleName = role.name;
-    }
-    return payload;
+  async createTokenPayload({ id, email, roleId }: User): Promise<TokenPayload> {
+    const role = await this.roleService.getById(roleId);
+    return { id, email, roleId, roleName: role.name };
   }
 
   async login(dto: LoginDto) {
