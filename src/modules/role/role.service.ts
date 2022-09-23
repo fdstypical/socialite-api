@@ -5,6 +5,7 @@ import { Role } from 'src/models';
 import { CreateRoleAttributes } from 'src/models/Role/interfaces';
 import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
 import { ErrorMessage } from 'src/core/constants/error.messages';
+import { Nullable } from 'src/core/types/app.types';
 
 @Injectable()
 export class RoleService {
@@ -12,7 +13,7 @@ export class RoleService {
     @InjectModel(Role) private readonly roleRepository: typeof Role,
   ) {}
 
-  getByName(name: RoleName, rejectOnEmpty?: Error) {
+  getByName(name: RoleName, rejectOnEmpty: Nullable<Error> = null) {
     return this.roleRepository.findOne({
       where: { name },
       rejectOnEmpty:
@@ -21,7 +22,7 @@ export class RoleService {
     });
   }
 
-  getById(id: number, rejectOnEmpty?: Error) {
+  getById(id: number, rejectOnEmpty: Nullable<Error> = null) {
     return this.roleRepository.findByPk(id, {
       rejectOnEmpty:
         rejectOnEmpty ??

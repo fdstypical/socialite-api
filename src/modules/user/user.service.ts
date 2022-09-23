@@ -1,22 +1,17 @@
+import { Includeable } from 'sequelize';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
-import {
-  Interest,
-  LifePhoto,
-  Role,
-  StaticField,
-  User,
-  UserAvatar,
-} from 'src/models';
+import { User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
 import { LifePhotoService } from '../life-photo/life-photo.service';
 import { RoleService } from '../role/role.service';
 import { UserAvatarService } from '../user-avatar/user-avatar.service';
 import { UserInterestService } from '../user-interest/user-interest.service';
 import { CreateUserDto } from './dtos/create.dto';
+import { Nullable } from 'src/core/types/app.types';
 
 @Injectable()
 export class UserService {
@@ -29,31 +24,31 @@ export class UserService {
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
-  async getAll() {
-    return this.userRepository.findAll({
-      include: [
-        Role,
-        { model: Interest, as: 'createdInterests' },
-        { model: Interest, as: 'interests' },
-        { model: UserAvatar, include: [StaticField] },
-        { model: LifePhoto, include: [StaticField] },
-      ],
-    });
+  async getAll(include: Includeable[] = []) {
+    return this.userRepository.findAll({ include });
   }
 
-  async getByEmail(email: string, rejectOnEmpty?: Error) {
+  async getByEmail(
+    email: string,
+    rejectOnEmpty: Nullable<Error> = null,
+    include: Includeable[] = [],
+  ) {
     return this.userRepository.findOne({
       where: { email },
-      include: [Role],
+      include,
       rejectOnEmpty:
         rejectOnEmpty ??
         new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
     });
   }
 
-  async getById(id: number, rejectOnEmpty?: Error) {
+  async getById(
+    id: number,
+    rejectOnEmpty: Nullable<Error> = null,
+    include: Includeable[] = [],
+  ) {
     return this.userRepository.findByPk(id, {
-      include: [Role],
+      include,
       rejectOnEmpty:
         rejectOnEmpty ??
         new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
@@ -62,10 +57,7 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     const [userRole] = await this.findOrCreateRole(RoleName.USER);
-    return this.userRepository.create(
-      { ...dto, roleId: userRole.id },
-      { include: [Role] },
-    );
+    return this.userRepository.create({ ...dto, roleId: userRole.id });
   }
 
   async addInterest(id: number) {

@@ -1,11 +1,13 @@
+import { Includeable } from 'sequelize';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { NotFoundException } from 'src/core/exceptions/build-in/not-found.exception';
 import { ErrorMessage } from 'src/core/constants/error.messages';
-import { Interest, StaticField, User } from 'src/models';
+import { Interest } from 'src/models';
 import { CreateInterestDto } from './dtos/create.dto';
 import { UpdateInterestDto } from './dtos/update.dto';
+import { Nullable } from 'src/core/types/app.types';
 
 @Injectable()
 export class InterestService {
@@ -14,15 +16,17 @@ export class InterestService {
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
-  async getAll() {
-    return this.interestRepository.findAll({
-      include: { all: true },
-    });
+  async getAll(include: Includeable[] = []) {
+    return this.interestRepository.findAll({ include });
   }
 
-  async getById(id: number, rejectOnEmpty?: Error) {
+  async getById(
+    id: number,
+    rejectOnEmpty: Nullable<Error> = null,
+    include: Includeable[] = [],
+  ) {
     return this.interestRepository.findByPk(id, {
-      include: [StaticField],
+      include,
       rejectOnEmpty:
         rejectOnEmpty ??
         new NotFoundException(ErrorMessage.NotFound, 'No such interest'),

@@ -15,6 +15,10 @@ import { UpdateInterestDto } from './dtos/update.dto';
 import { CheckCreatorGuard } from 'src/guards/check-creator.guard';
 import { IsModel } from 'src/decorators/is-model.decorator';
 import { Interest } from 'src/models';
+import {
+  creatorInclude,
+  previewInclude,
+} from 'src/models/includes/interest.include';
 
 @Controller('interests')
 export class InterestController {
@@ -22,12 +26,12 @@ export class InterestController {
 
   @Get()
   async getAll() {
-    return this.interestService.getAll();
+    return this.interestService.getAll([previewInclude, creatorInclude]);
   }
 
   @Get(':id')
   async getById(@Param('id', new ParseIntPipe()) id: number) {
-    return this.interestService.getById(id);
+    return this.interestService.getById(id, null, [previewInclude]);
   }
 
   @IsModel(Interest)

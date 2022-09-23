@@ -1,4 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  avatarInclude,
+  interestsInclude,
+  lifePhotosInclude,
+  roleInclude,
+} from 'src/models/includes/user.includes';
 import { CreateUserDto } from './dtos/create.dto';
 import { UserService } from './user.service';
 
@@ -13,7 +19,20 @@ export class UserController {
 
   @Get()
   getAll() {
-    return this.userService.getAll();
+    return this.userService.getAll([
+      roleInclude,
+      avatarInclude,
+      interestsInclude,
+      lifePhotosInclude,
+    ]);
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: number) {
+    return this.userService.getById(id, undefined, [
+      roleInclude,
+      avatarInclude,
+    ]);
   }
 
   @Post('addInterest/:id')
