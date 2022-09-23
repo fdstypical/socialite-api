@@ -21,14 +21,8 @@ export class AuthService {
     private readonly configService: ApiConfigService,
   ) {}
 
-  async createTokenPayload({ id, email, roleId }: User): Promise<TokenPayload> {
-    const role = await this.roleService.getById(roleId);
-    return { id, email, roleId, roleName: role.name };
-  }
-
   async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
-
     return this.generateTokens(await this.createTokenPayload(user));
   }
 
@@ -61,6 +55,11 @@ export class AuthService {
     );
 
     return this.generateTokens(await this.createTokenPayload(user));
+  }
+
+  private async createTokenPayload({ id, email, roleId }: User): Promise<TokenPayload> {
+    const role = await this.roleService.getById(roleId);
+    return { id, email, roleId, roleName: role.name };
   }
 
   private generateTokens(payload: TokenPayload) {
