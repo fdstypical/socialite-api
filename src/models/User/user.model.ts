@@ -62,15 +62,15 @@ export class User extends Model<User, UserCreationAttributes> {
   @BelongsTo(() => Role, 'roleId')
   readonly role: Role;
 
-  @HasMany(() => Interest)
+  @HasMany(() => Interest, 'createdByUserId')
   readonly createdInterests: Interest[];
 
-  @BelongsToMany(() => Interest, () => UserInterest)
+  @BelongsToMany(() => Interest, () => UserInterest, 'userId', 'interestId')
   readonly interests: Interest[];
 
-  @HasOne(() => UserAvatar)
+  @HasOne(() => UserAvatar, 'userId')
   readonly avatar: UserAvatar;
 
-  @HasMany(() => LifePhoto)
+  @HasMany(() => LifePhoto, 'userId')
   readonly lifePhotos: LifePhoto[];
 }

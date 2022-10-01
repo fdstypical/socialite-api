@@ -26,6 +26,6 @@ export class Role extends Model<Role, CreateRoleAttributes> {
   })
   readonly description: string | null;
 
-  @HasMany(() => User)
+  @HasMany(() => User, 'roleId')
   readonly users: User[];
 }
