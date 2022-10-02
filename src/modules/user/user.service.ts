@@ -24,6 +24,10 @@ export class UserService {
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
+  async deleteById(id: number) {
+    return this.userRepository.destroy({ where: { id } });
+  }
+
   async getAll(include: Includeable[] = []) {
     return this.userRepository.findAll({ include });
   }

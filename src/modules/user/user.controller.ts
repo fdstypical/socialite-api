@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import {
   avatarInclude,
   interestsInclude,
@@ -33,5 +33,10 @@ export class UserController {
       roleInclude,
       avatarInclude,
     ]);
+  }
+
+  @Delete(':id')
+  deleteById(@Param('id') id: number) {
+    return this.userService.deleteById(id);
   }
 }
