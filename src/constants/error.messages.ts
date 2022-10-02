@@ -1,9 +1,9 @@
 /*
-  <ValidationErrorMessage>
+  <ConstraintMessage>
   Validation error messages for validation.exception -> response.message
   Contains base error`s messages if the form of localization keys for client
 */
-export enum ValidationErrorMessage {
+export enum ConstraintMessage {
   MUST_BE_STRING = 'must.be.string',
   MUST_BE_EMAIL = 'must.be.email',
   MUST_BE_LONGER = 'must.be.longer',

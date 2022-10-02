@@ -3,9 +3,12 @@ import { Reflector } from '@nestjs/core';
 import { InjectConnection } from '@nestjs/sequelize';
 import { Request } from 'express';
 import { Model, Sequelize } from 'sequelize-typescript';
+import { ConstraintMessage } from 'src/constants/error.messages';
 import { ErrorMessage } from 'src/core/constants/error.messages';
 import { ForbiddenException } from 'src/core/exceptions/build-in/forbidden.exception';
 import { InternalServerErrorException } from 'src/core/exceptions/build-in/internal-server-error.exception';
+import { NotFoundException } from 'src/core/exceptions/build-in/not-found.exception';
+import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { MODEL_KEY } from 'src/decorators/is-model.decorator';
 
@@ -26,18 +29,23 @@ export class CheckCreatorGuard implements CanActivate {
 
     const entityId = Number(request.params.id);
 
-    if (!EntityClass || !entityId || !Number.isInteger(entityId))
+    if (!EntityClass)
       throw new InternalServerErrorException(
         ErrorMessage.InternalError,
         'Something went wrong',
       );
 
+    if (!entityId || !Number.isInteger(entityId))
+      throw PipeExceptionFactory('id', [ConstraintMessage.MUST_BE_INTEGER])(
+        'Validation failed (numeric string is expected)',
+      );
+
     const model = await this.connection
       .getRepository(EntityClass)
       .findByPk(entityId, {
-        rejectOnEmpty: new InternalServerErrorException(
-          ErrorMessage.InternalError,
-          'Something went wrong',
+        rejectOnEmpty: new NotFoundException(
+          ErrorMessage.NotFound,
+          `No such ${EntityClass.name}`,
         ),
       });
 

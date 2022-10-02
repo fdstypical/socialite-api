@@ -19,6 +19,8 @@ import {
   creatorInclude,
   previewInclude,
 } from 'src/models/includes/interest.include';
+import { ConstraintMessage } from 'src/constants/error.messages';
+import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 
 @Controller('interests')
 export class InterestController {
@@ -30,7 +32,17 @@ export class InterestController {
   }
 
   @Get(':id')
-  async getById(@Param('id', new ParseIntPipe()) id: number) {
+  async getById(
+    @Param(
+      'id',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [
+          ConstraintMessage.MUST_BE_INTEGER,
+        ]),
+      }),
+    )
+    id: number,
+  ) {
     return this.interestService.getById(id, null, [previewInclude]);
   }
 
@@ -38,7 +50,15 @@ export class InterestController {
   @UseGuards(CheckCreatorGuard)
   @Patch(':id')
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param(
+      'id',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [
+          ConstraintMessage.MUST_BE_INTEGER,
+        ]),
+      }),
+    )
+    id: number,
     @Body() dto: UpdateInterestDto,
   ) {
     delete (dto as any).id;
@@ -54,7 +74,17 @@ export class InterestController {
   @IsModel(Interest)
   @UseGuards(CheckCreatorGuard)
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
+  async delete(
+    @Param(
+      'id',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [
+          ConstraintMessage.MUST_BE_INTEGER,
+        ]),
+      }),
+    )
+    id: number,
+  ) {
     return this.interestService.delete(id);
   }
 }

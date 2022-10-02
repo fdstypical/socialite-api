@@ -1,4 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { ConstraintMessage } from 'src/constants/error.messages';
+import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 import {
   avatarInclude,
   interestsInclude,
@@ -28,15 +30,28 @@ export class UserController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: number) {
-    return this.userService.getById(id, undefined, [
-      roleInclude,
-      avatarInclude,
-    ]);
+  getById(
+    @Param(
+      'id',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [ConstraintMessage.MUST_BE_INTEGER]),
+      }),
+    )
+    id: number,
+  ) {
+    return this.userService.getById(id, undefined, [roleInclude, avatarInclude]);
   }
 
   @Delete(':id')
-  deleteById(@Param('id') id: number) {
+  deleteById(
+    @Param(
+      'id',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [ConstraintMessage.MUST_BE_INTEGER]),
+      }),
+    )
+    id: number,
+  ) {
     return this.userService.deleteById(id);
   }
 }

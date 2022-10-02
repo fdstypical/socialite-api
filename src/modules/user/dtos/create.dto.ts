@@ -6,33 +6,33 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { ValidationErrorMessage } from 'src/constants/error.messages';
+import { ConstraintMessage } from 'src/constants/error.messages';
 import { User } from 'src/models';
 import { Gender } from 'src/types/common.types';
 import { IsUnique, UniqueValidator } from 'src/decorators/unique.decorator';
 import { Constants } from 'src/constants/app.constants';
 
 export class CreateUserDto {
-  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
+  @IsString({ message: ConstraintMessage.MUST_BE_STRING })
   readonly name: string;
 
-  @IsNumber({}, { message: ValidationErrorMessage.MUST_BE_NUMBER })
+  @IsNumber({}, { message: ConstraintMessage.MUST_BE_NUMBER })
   readonly age: number;
 
-  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
-  @IsEmail({}, { message: ValidationErrorMessage.MUST_BE_EMAIL })
+  @IsString({ message: ConstraintMessage.MUST_BE_STRING })
+  @IsEmail({}, { message: ConstraintMessage.MUST_BE_EMAIL })
   @IsUnique(UniqueValidator, [User])
   readonly email: string;
 
-  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
+  @IsString({ message: ConstraintMessage.MUST_BE_STRING })
   @MinLength(Constants.MIN_PASSWORD_LENGTH, {
-    message: ValidationErrorMessage.MUST_BE_LONGER,
+    message: ConstraintMessage.MUST_BE_LONGER,
     context: { minLength: Constants.MIN_PASSWORD_LENGTH },
   })
   readonly password: string;
 
   @IsEnum(Gender, {
-    message: ValidationErrorMessage.MUST_BE_ENUM,
+    message: ConstraintMessage.MUST_BE_ENUM,
     context: {
       availableValues: Object.values(Gender),
     },
@@ -40,6 +40,6 @@ export class CreateUserDto {
   readonly gender: Gender;
 
   @IsOptional()
-  @IsString({ message: ValidationErrorMessage.MUST_BE_STRING })
+  @IsString({ message: ConstraintMessage.MUST_BE_STRING })
   status?: string;
 }
