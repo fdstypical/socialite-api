@@ -2,8 +2,9 @@ import { Includeable } from 'sequelize';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ErrorMessage } from 'src/core/constants/error.messages';
-import { BadRequestException } from 'src/core/exceptions/build-in/bad-request.exception';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
+import { NotFoundException } from 'src/core/exceptions/build-in/not-found.exception';
+import { Nullable } from 'src/core/types/app.types';
 import { User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
 import { LifePhotoService } from '../life-photo/life-photo.service';
@@ -11,7 +12,6 @@ import { RoleService } from '../role/role.service';
 import { UserAvatarService } from '../user-avatar/user-avatar.service';
 import { UserInterestService } from '../user-interest/user-interest.service';
 import { CreateUserDto } from './dtos/create.dto';
-import { Nullable } from 'src/core/types/app.types';
 
 @Injectable()
 export class UserService {
@@ -42,7 +42,7 @@ export class UserService {
       include,
       rejectOnEmpty:
         rejectOnEmpty ??
-        new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
+        new NotFoundException(ErrorMessage.NotFound, 'No such user'),
     });
   }
 
@@ -55,7 +55,7 @@ export class UserService {
       include,
       rejectOnEmpty:
         rejectOnEmpty ??
-        new BadRequestException(ErrorMessage.BadRequest, 'No such user'),
+        new NotFoundException(ErrorMessage.NotFound, 'No such user'),
     });
   }
 
