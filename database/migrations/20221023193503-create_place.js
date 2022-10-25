@@ -17,6 +17,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      locationId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: { model: 'locations', key: 'id' },
+        onDelete: 'CASCADE',
+      },
       createdByUserId: {
         type: Sequelize.INTEGER,
         allowNull: false,

@@ -6,7 +6,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { User } from 'src/models';
+import { User, Location } from 'src/models';
 import { CreatePlaceAttributes } from './interfaces';
 
 @Table({ tableName: 'places' })
@@ -30,6 +30,13 @@ export class Place extends Model<Place, CreatePlaceAttributes> {
     allowNull: false,
   })
   readonly description: string;
+
+  @ForeignKey(() => Location)
+  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
+  readonly locationId: number;
+
+  @BelongsTo(() => Location, 'locationId')
+  readonly location: Location;
 
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER, allowNull: false })
