@@ -5,3 +5,4 @@ export { Interest } from './Interest/interest.model';
 export { UserInterest } from './UserInterest/user-interest.model';
 export { UserAvatar } from './UserAvatar/user-avatar.model';
 export { LifePhoto } from './LifePhoto/life-photo.model';
+export { Place } from './Place/place.model';
