@@ -11,6 +11,11 @@ import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory'
 import { AddInterestDto } from './dtos/add-interest.dto';
 import { CreatePlaceDto } from './dtos/create.dto';
 import { PlaceService } from './place.service';
+import {
+  creatorInclude,
+  locationInclude,
+  interestsInclude,
+} from 'src/models/includes/place.includes';
 
 @Controller('places')
 export class PlaceController {
@@ -28,7 +33,7 @@ export class PlaceController {
 
   @Get()
   getAll() {
-    return this.placeService.getAll();
+    return this.placeService.getAll([locationInclude]);
   }
 
   @Get(':id')
@@ -43,6 +48,10 @@ export class PlaceController {
     )
     id: number,
   ) {
-    return this.placeService.getById(id);
+    return this.placeService.getById(id, null, [
+      locationInclude,
+      interestsInclude,
+      creatorInclude,
+    ]);
   }
 }
