@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Place } from 'src/models';
+import { PlaceInterestModule } from '../place-interest/place-interest.module';
 import { PlaceController } from './place.controller';
 import { PlaceService } from './place.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Place])],
+  imports: [SequelizeModule.forFeature([Place]), PlaceInterestModule],
   providers: [PlaceService],
   controllers: [PlaceController],
   exports: [PlaceService],

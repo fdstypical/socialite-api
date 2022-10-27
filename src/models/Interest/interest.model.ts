@@ -7,7 +7,13 @@ import {
   ForeignKey,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { StaticField, User, UserInterest } from 'src/models';
+import {
+  StaticField,
+  User,
+  UserInterest,
+  Place,
+  PlaceInterest,
+} from 'src/models';
 import { CreateInterestAttributes } from './interfaces';
 
 @Table({ tableName: 'interests' })
@@ -48,4 +54,7 @@ export class Interest extends Model<Interest, CreateInterestAttributes> {
 
   @BelongsToMany(() => User, () => UserInterest, 'interestId', 'userId')
   readonly users: User[];
+
+  @BelongsToMany(() => Place, () => PlaceInterest, 'interestId', 'placeId')
+  readonly places: Place[];
 }

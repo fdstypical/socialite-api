@@ -10,10 +10,7 @@ export class UserInterestService {
     private readonly userInterestRepository: typeof UserInterest,
   ) {}
 
-  addInterestToUser({
-    userId,
-    interestId,
-  }: CreateUserInterestAttributes) {
+  addInterestToUser({ userId, interestId }: CreateUserInterestAttributes) {
     return this.userInterestRepository.create({ userId, interestId });
   }
 }

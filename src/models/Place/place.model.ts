@@ -5,8 +5,9 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  BelongsToMany,
 } from 'sequelize-typescript';
-import { User, Location } from 'src/models';
+import { User, Location, Interest, PlaceInterest } from 'src/models';
 import { CreatePlaceAttributes } from './interfaces';
 
 @Table({ tableName: 'places' })
@@ -44,4 +45,7 @@ export class Place extends Model<Place, CreatePlaceAttributes> {
 
   @BelongsTo(() => User, 'createdByUserId')
   readonly creator: User;
+
+  @BelongsToMany(() => Interest, () => PlaceInterest, 'placeId', 'interestId')
+  readonly interests: Interest[];
 }

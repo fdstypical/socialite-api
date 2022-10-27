@@ -6,10 +6,13 @@ import {
   ForeignKey,
 } from 'sequelize-typescript';
 import { Place, Interest } from 'src/models';
-import { CreatePlaceAttributes } from '../Place/interfaces';
+import { CreatePlaceInterestAttributes } from './interfaces';
 
 @Table({ tableName: 'places_interests' })
-export class PlaceInterest extends Model<PlaceInterest, CreatePlaceAttributes> {
+export class PlaceInterest extends Model<
+  PlaceInterest,
+  CreatePlaceInterestAttributes
+> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
