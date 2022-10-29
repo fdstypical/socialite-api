@@ -1,4 +1,4 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 import { ConstraintMessage } from 'src/constants/error.messages';
 
 export class CreatePlaceDto {
@@ -11,6 +11,7 @@ export class CreatePlaceDto {
   @IsInt({ message: ConstraintMessage.MUST_BE_INTEGER })
   readonly locationId: number;
 
+  @IsOptional()
   @IsInt({ message: ConstraintMessage.MUST_BE_INTEGER })
-  readonly previewId: number;
+  readonly previewId?: number;
 }
