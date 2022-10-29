@@ -8,8 +8,9 @@ import {
 } from '@nestjs/common';
 import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
-import { AddInterestDto } from './dtos/add-interest.dto';
 import { CreatePlaceDto } from './dtos/create.dto';
+import { AddInterestDto } from './dtos/add-interest.dto';
+import { AddAttachmentDto } from './dtos/add-attachment.dto';
 import { PlaceService } from './place.service';
 import {
   creatorInclude,
@@ -30,6 +31,11 @@ export class PlaceController {
   @Post('addInterest')
   addInterest(@Body() dto: AddInterestDto) {
     return this.placeService.addInterest(dto);
+  }
+
+  @Post('addAttachment')
+  addAttachment(@Body() dto: AddAttachmentDto) {
+    return this.placeService.addAttachment(dto);
   }
 
   @Get()

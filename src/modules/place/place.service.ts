@@ -8,13 +8,16 @@ import { Nullable } from 'src/core/types/app.types';
 import { Place } from 'src/models';
 import { CreatePlaceDto } from './dtos/create.dto';
 import { AddInterestDto } from './dtos/add-interest.dto';
+import { AddAttachmentDto } from './dtos/add-attachment.dto';
 import { PlaceInterestService } from '../place-interest/place-interest.service';
+import { PlaceAttachmentService } from '../place-attachment/place-attachment.service';
 
 @Injectable()
 export class PlaceService {
   constructor(
     @InjectModel(Place) private readonly placeRepository: typeof Place,
     private readonly placeInterestService: PlaceInterestService,
+    private readonly placeAttachmentService: PlaceAttachmentService,
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
@@ -25,6 +28,10 @@ export class PlaceService {
 
   async addInterest(dto: AddInterestDto) {
     return this.placeInterestService.addInterestToPlace(dto);
+  }
+
+  async addAttachment(dto: AddAttachmentDto) {
+    return this.placeAttachmentService.addAttachment(dto);
   }
 
   async getById(

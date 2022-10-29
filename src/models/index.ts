@@ -8,3 +8,4 @@ export { LifePhoto } from './LifePhoto/life-photo.model';
 export { Location } from './Location/location.model';
 export { Place } from './Place/place.model';
 export { PlaceInterest } from './PlaceInterest/place-interest.model';
+export { PlaceAttachment } from './PlaceAttachments/place-attachments.model';

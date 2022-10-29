@@ -10,8 +10,8 @@ import { Place, StaticField } from 'src/models';
 import { CreatePlaceAttachmentAttributes } from './interfaces';
 
 @Table({ tableName: 'place_attachments' })
-export class PlaceAttachments extends Model<
-  PlaceAttachments,
+export class PlaceAttachment extends Model<
+  PlaceAttachment,
   CreatePlaceAttachmentAttributes
 > {
   @Column({
