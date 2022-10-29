@@ -10,4 +10,7 @@ export class CreatePlaceDto {
 
   @IsInt({ message: ConstraintMessage.MUST_BE_INTEGER })
   readonly locationId: number;
+
+  @IsInt({ message: ConstraintMessage.MUST_BE_INTEGER })
+  readonly previewId: number;
 }

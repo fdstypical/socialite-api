@@ -22,7 +22,11 @@ module.exports = {
         allowNull: false,
         unique: true,
         references: { model: 'locations', key: 'id' },
-        onDelete: 'CASCADE',
+      },
+      previewId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: 'static_field', key: 'id' },
       },
       createdByUserId: {
         type: Sequelize.INTEGER,

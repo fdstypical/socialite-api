@@ -7,7 +7,13 @@ import {
   BelongsTo,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { User, Location, Interest, PlaceInterest } from 'src/models';
+import {
+  User,
+  Location,
+  Interest,
+  PlaceInterest,
+  StaticField,
+} from 'src/models';
 import { CreatePlaceAttributes } from './interfaces';
 
 @Table({ tableName: 'places' })
@@ -45,6 +51,13 @@ export class Place extends Model<Place, CreatePlaceAttributes> {
 
   @BelongsTo(() => User, 'createdByUserId')
   readonly creator: User;
+
+  @ForeignKey(() => StaticField)
+  @Column({ type: DataType.INTEGER, allowNull: true })
+  readonly previewId: number;
+
+  @BelongsTo(() => StaticField, 'previewId')
+  readonly preview: StaticField;
 
   @BelongsToMany(() => Interest, () => PlaceInterest, 'placeId', 'interestId')
   readonly interests: Interest[];

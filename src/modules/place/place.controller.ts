@@ -15,6 +15,7 @@ import {
   creatorInclude,
   locationInclude,
   interestsInclude,
+  previewInclide,
 } from 'src/models/includes/place.includes';
 
 @Controller('places')
@@ -33,7 +34,7 @@ export class PlaceController {
 
   @Get()
   getAll() {
-    return this.placeService.getAll([locationInclude]);
+    return this.placeService.getAll([locationInclude, previewInclide]);
   }
 
   @Get(':id')
@@ -52,6 +53,7 @@ export class PlaceController {
       locationInclude,
       interestsInclude,
       creatorInclude,
+      previewInclide,
     ]);
   }
 }
