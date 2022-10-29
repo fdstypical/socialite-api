@@ -13,6 +13,7 @@ import {
   Interest,
   PlaceInterest,
   StaticField,
+  PlaceAttachment,
 } from 'src/models';
 import { CreatePlaceAttributes } from './interfaces';
 
@@ -61,4 +62,7 @@ export class Place extends Model<Place, CreatePlaceAttributes> {
 
   @BelongsToMany(() => Interest, () => PlaceInterest, 'placeId', 'interestId')
   readonly interests: Interest[];
+
+  @BelongsToMany(() => StaticField, () => PlaceAttachment, 'placeId', 'fileId')
+  readonly attachments: StaticField[];
 }

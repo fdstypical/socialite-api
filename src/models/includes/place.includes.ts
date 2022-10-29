@@ -16,7 +16,12 @@ export const interestsInclude: Includeable = {
   as: 'interests',
 };
 
-export const previewInclide: Includeable = {
+export const previewInclude: Includeable = {
   model: StaticField,
   as: 'preview',
+};
+
+export const attachmentInclude: Includeable = {
+  model: StaticField,
+  as: 'attachments',
 };
