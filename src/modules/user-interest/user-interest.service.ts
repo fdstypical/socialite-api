@@ -1,16 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Sequelize } from 'sequelize-typescript';
 import { UserInterest } from 'src/models';
-import { CreateUserInterestAttributes } from 'src/models/UserInterest/interfaces';
 
 @Injectable()
 export class UserInterestService {
   constructor(
     @InjectModel(UserInterest)
     private readonly userInterestRepository: typeof UserInterest,
+    private readonly sequelize: Sequelize,
   ) {}
 
-  addInterestToUser({ userId, interestId }: CreateUserInterestAttributes) {
-    return this.userInterestRepository.create({ userId, interestId });
+  async add(userId: number, interests: number[]): Promise<UserInterest[]> {
+    const alreadyExists = (
+      await this.userInterestRepository.findAll({
+        where: { userId },
+      })
+    ).map((userInterest) => userInterest.interestId);
+
+    const uniqueIds = interests.filter(
+      (interestId) => !alreadyExists.includes(interestId),
+    );
+
+    return this.sequelize.transaction((transaction) =>
+      Promise.all(
+        uniqueIds.map((interestId) =>
+          this.userInterestRepository.create(
+            { userId, interestId },
+            { transaction },
+          ),
+        ),
+      ),
+    );
   }
 }

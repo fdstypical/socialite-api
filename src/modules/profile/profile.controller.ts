@@ -1,25 +1,16 @@
-import { Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
+import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { UserService } from '../user/user.service';
 
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('addInterest/:id')
-  addInterest(
-    @Param(
-      'id',
-      new ParseIntPipe({
-        exceptionFactory: PipeExceptionFactory('id', [
-          ConstraintMessage.MUST_BE_INTEGER,
-        ]),
-      }),
-    )
-    id: number,
-  ) {
-    return this.userService.addInterest(id);
+  @Post('interests')
+  addInterest(@Body() dto: AddInterestsDto) {
+    return this.userService.addInterests(dto);
   }
 
   @Post('addAvatar/:id')

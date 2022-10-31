@@ -11,6 +11,7 @@ import { LifePhotoService } from '../life-photo/life-photo.service';
 import { RoleService } from '../role/role.service';
 import { UserAvatarService } from '../user-avatar/user-avatar.service';
 import { UserInterestService } from '../user-interest/user-interest.service';
+import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { CreateUserDto } from './dtos/create.dto';
 
 @Injectable()
@@ -64,12 +65,9 @@ export class UserService {
     return this.userRepository.create({ ...dto, roleId: userRole.id });
   }
 
-  async addInterest(id: number) {
+  async addInterests(dto: AddInterestsDto) {
     const { id: userId } = this.asyncContext.get('user');
-    return this.userInterestService.addInterestToUser({
-      userId,
-      interestId: id,
-    });
+    return this.userInterestService.add(userId, dto.interests);
   }
 
   async addAvatar(id: number) {
