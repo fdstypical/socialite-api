@@ -33,4 +33,10 @@ export class UserInterestService {
       ),
     );
   }
+
+  async delete(userId: number, interestId: number): Promise<number> {
+    return this.userInterestRepository.destroy({
+      where: { userId, interestId },
+    });
+  }
 }

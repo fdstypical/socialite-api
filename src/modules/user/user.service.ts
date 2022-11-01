@@ -70,6 +70,11 @@ export class UserService {
     return this.userInterestService.add(userId, dto.interests);
   }
 
+  async deleteInterest(interestId: number) {
+    const { id: userId } = this.asyncContext.get('user');
+    return this.userInterestService.delete(userId, interestId);
+  }
+
   async addAvatar(id: number) {
     const { id: userId } = this.asyncContext.get('user');
     return this.userAvatarService.addAvatarToUser({
