@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -29,20 +30,44 @@ export class PlaceController {
     return this.placeService.create(dto);
   }
 
-  @Post('interests/:id')
+  @Post(':placeId/interests')
   addInterest(
     @Param(
-      'id',
+      'placeId',
       new ParseIntPipe({
         exceptionFactory: PipeExceptionFactory('id', [
           ConstraintMessage.MUST_BE_INTEGER,
         ]),
       }),
     )
-    id: number,
+    placeId: number,
     @Body() dto: AddInterestsDto,
   ) {
-    return this.placeService.addInterests(id, dto);
+    return this.placeService.addInterests(placeId, dto);
+  }
+
+  @Delete(':placeId/interests/:interestId')
+  deleteInterest(
+    @Param(
+      'placeId',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [
+          ConstraintMessage.MUST_BE_INTEGER,
+        ]),
+      }),
+    )
+    placeId: number,
+    @Param(
+      'interestId',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [
+          ConstraintMessage.MUST_BE_INTEGER,
+        ]),
+      }),
+    )
+    interestId: number,
+  ) {
+    return this.placeService.deleteInterest(placeId, interestId);
   }
 
   @Post('addAttachment')
