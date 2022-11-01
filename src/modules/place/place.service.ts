@@ -7,10 +7,10 @@ import { ErrorMessage } from 'src/core/constants/error.messages';
 import { Nullable } from 'src/core/types/app.types';
 import { Place } from 'src/models';
 import { CreatePlaceDto } from './dtos/create.dto';
-import { AddInterestDto } from './dtos/add-interest.dto';
 import { AddAttachmentDto } from './dtos/add-attachment.dto';
 import { PlaceInterestService } from '../place-interest/place-interest.service';
 import { PlaceAttachmentService } from '../place-attachment/place-attachment.service';
+import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 
 @Injectable()
 export class PlaceService {
@@ -26,8 +26,12 @@ export class PlaceService {
     return this.placeRepository.create({ ...dto, createdByUserId: userId });
   }
 
-  async addInterest(dto: AddInterestDto) {
-    return this.placeInterestService.addInterestToPlace(dto);
+  async addInterests(placeId: number, dto: AddInterestsDto) {
+    return this.placeInterestService.add(placeId, dto.interests);
+  }
+
+  async deleteInterest(placeId: number, interestId: number) {
+    return this.placeInterestService.delete(placeId, interestId);
   }
 
   async addAttachment(dto: AddAttachmentDto) {

@@ -9,9 +9,9 @@ import {
 import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 import { CreatePlaceDto } from './dtos/create.dto';
-import { AddInterestDto } from './dtos/add-interest.dto';
 import { AddAttachmentDto } from './dtos/add-attachment.dto';
 import { PlaceService } from './place.service';
+import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import {
   creatorInclude,
   locationInclude,
@@ -29,9 +29,20 @@ export class PlaceController {
     return this.placeService.create(dto);
   }
 
-  @Post('addInterest')
-  addInterest(@Body() dto: AddInterestDto) {
-    return this.placeService.addInterest(dto);
+  @Post('interests/:id')
+  addInterest(
+    @Param(
+      'id',
+      new ParseIntPipe({
+        exceptionFactory: PipeExceptionFactory('id', [
+          ConstraintMessage.MUST_BE_INTEGER,
+        ]),
+      }),
+    )
+    id: number,
+    @Body() dto: AddInterestsDto,
+  ) {
+    return this.placeService.addInterests(id, dto);
   }
 
   @Post('addAttachment')
