@@ -14,7 +14,6 @@ import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { InterestModule } from './modules/interest/interest.module';
-import { UserInterestModule } from './modules/user-interest/user-interest.module';
 import { UserAvatarModule } from './modules/user-avatar/user-avatar.module';
 import { LifePhotoModule } from './modules/life-photo/life-photo.module';
 import { ProfileModule } from './modules/profile/profile.module';
@@ -44,7 +43,6 @@ import { ValidationPipe } from './pipes/validation.pipe';
     AuthModule,
     UploadModule,
     InterestModule,
-    UserInterestModule,
     UserAvatarModule,
     LifePhotoModule,
     ProfileModule,

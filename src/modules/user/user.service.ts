@@ -10,8 +10,6 @@ import { RoleName } from 'src/types/common.types';
 import { LifePhotoService } from '../life-photo/life-photo.service';
 import { RoleService } from '../role/role.service';
 import { UserAvatarService } from '../user-avatar/user-avatar.service';
-import { UserInterestService } from '../user-interest/user-interest.service';
-import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { CreateUserDto } from './dtos/create.dto';
 
 @Injectable()
@@ -19,7 +17,6 @@ export class UserService {
   constructor(
     @InjectModel(User) private readonly userRepository: typeof User,
     private readonly roleService: RoleService,
-    private readonly userInterestService: UserInterestService,
     private readonly userAvatarService: UserAvatarService,
     private readonly lifePhotoService: LifePhotoService,
     private readonly asyncContext: AsyncContext<string, any>,
@@ -63,16 +60,6 @@ export class UserService {
   async create(dto: CreateUserDto) {
     const [userRole] = await this.findOrCreateRole(RoleName.USER);
     return this.userRepository.create({ ...dto, roleId: userRole.id });
-  }
-
-  async addInterests(dto: AddInterestsDto) {
-    const { id: userId } = this.asyncContext.get('user');
-    return this.userInterestService.add(userId, dto.interests);
-  }
-
-  async deleteInterest(interestId: number) {
-    const { id: userId } = this.asyncContext.get('user');
-    return this.userInterestService.delete(userId, interestId);
   }
 
   async addAvatar(id: number) {

@@ -1,23 +1,22 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from 'src/models';
+import { User, UserInterest } from 'src/models';
 import { LifePhotoModule } from '../life-photo/life-photo.module';
 import { RoleModule } from '../role/role.module';
 import { UserAvatarModule } from '../user-avatar/user-avatar.module';
-import { UserInterestModule } from '../user-interest/user-interest.module';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { UserInterestService } from './user-interest.service';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([User]),
+    SequelizeModule.forFeature([User, UserInterest]),
     RoleModule,
-    UserInterestModule,
     UserAvatarModule,
-    LifePhotoModule
+    LifePhotoModule,
   ],
-  providers: [UserService],
+  providers: [UserService, UserInterestService],
   controllers: [UserController],
-  exports: [UserService],
+  exports: [UserService, UserInterestService],
 })
 export class UserModule {}
