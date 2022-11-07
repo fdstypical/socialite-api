@@ -12,6 +12,7 @@ import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory'
 import { CreatePlaceDto } from './dtos/create.dto';
 import { AddAttachmentDto } from './dtos/add-attachment.dto';
 import { PlaceService } from './place.service';
+import { PlaceInterestService } from './place-interest.service';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import {
   creatorInclude,
@@ -23,7 +24,10 @@ import {
 
 @Controller('places')
 export class PlaceController {
-  constructor(private readonly placeService: PlaceService) {}
+  constructor(
+    private readonly placeService: PlaceService,
+    private readonly placeInterestService: PlaceInterestService,
+  ) {}
 
   @Post()
   create(@Body() dto: CreatePlaceDto) {
@@ -43,7 +47,7 @@ export class PlaceController {
     placeId: number,
     @Body() dto: AddInterestsDto,
   ) {
-    return this.placeService.addInterests(placeId, dto);
+    return this.placeInterestService.add(placeId, dto.interests);
   }
 
   @Delete(':placeId/interests/:interestId')
@@ -67,7 +71,7 @@ export class PlaceController {
     )
     interestId: number,
   ) {
-    return this.placeService.deleteInterest(placeId, interestId);
+    return this.placeInterestService.delete(placeId, interestId);
   }
 
   @Post('addAttachment')
