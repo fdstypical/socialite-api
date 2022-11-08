@@ -62,6 +62,7 @@ export class UserService {
 
   async addPhoto(id: number) {
     const { id: userId } = this.asyncContext.get('user');
+
     return this.lifePhotoService.addPhotoToUser({
       userId,
       fileId: id,

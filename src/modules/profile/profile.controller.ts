@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
-import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { UserAvatarService } from '../user/user-avatar.service';
 import { UserInterestService } from '../user/user-interest.service';
@@ -20,13 +19,11 @@ export class ProfileController {
     private readonly userService: UserService,
     private readonly userInterestService: UserInterestService,
     private readonly userAvatarService: UserAvatarService,
-    private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
   @Post('interests')
   addInterests(@Body() dto: AddInterestsDto) {
-    const { id: userId } = this.asyncContext.get('user');
-    return this.userInterestService.add(userId, dto.interests);
+    return this.userInterestService.add(dto.interests);
   }
 
   @Delete('interests/:id')
@@ -41,8 +38,7 @@ export class ProfileController {
     )
     id: number,
   ) {
-    const { id: userId } = this.asyncContext.get('user');
-    return this.userInterestService.delete(userId, id);
+    return this.userInterestService.delete(id);
   }
 
   @Post('addAvatar/:id')
