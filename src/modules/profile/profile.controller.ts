@@ -41,7 +41,7 @@ export class ProfileController {
     return this.userInterestService.delete(id);
   }
 
-  @Post('addAvatar/:id')
+  @Post('avatar/:id')
   addAvatar(
     @Param(
       'id',
