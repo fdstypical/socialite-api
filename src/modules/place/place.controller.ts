@@ -13,6 +13,7 @@ import { CreatePlaceDto } from './dtos/create.dto';
 import { AddAttachmentDto } from './dtos/add-attachment.dto';
 import { PlaceService } from './place.service';
 import { PlaceInterestService } from './place-interest.service';
+import { PlaceAttachmentService } from './place-attachment.service';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import {
   creatorInclude,
@@ -27,6 +28,7 @@ export class PlaceController {
   constructor(
     private readonly placeService: PlaceService,
     private readonly placeInterestService: PlaceInterestService,
+    private readonly placeAttachmentService: PlaceAttachmentService,
   ) {}
 
   @Post()
@@ -74,9 +76,9 @@ export class PlaceController {
     return this.placeInterestService.delete(placeId, interestId);
   }
 
-  @Post('addAttachment')
+  @Post('attachment')
   addAttachment(@Body() dto: AddAttachmentDto) {
-    return this.placeService.addAttachment(dto);
+    return this.placeAttachmentService.add(dto);
   }
 
   @Get()

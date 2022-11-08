@@ -10,7 +10,7 @@ export class PlaceAttachmentService {
     private readonly placeAttachmentRepoository: typeof PlaceAttachment,
   ) {}
 
-  addAttachment({ placeId, fileId }: CreatePlaceAttachmentAttributes) {
+  add({ placeId, fileId }: CreatePlaceAttachmentAttributes) {
     return this.placeAttachmentRepoository.create({ placeId, fileId });
   }
 }

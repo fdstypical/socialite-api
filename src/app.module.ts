@@ -19,7 +19,6 @@ import { LifePhotoModule } from './modules/life-photo/life-photo.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { LocationModule } from './modules/location/location.module';
 import { PlaceModule } from './modules/place/palce.module';
-import { PlaceAttachmentModule } from './modules/place-attachment/place-attachment.module';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
@@ -48,7 +47,6 @@ import { ValidationPipe } from './pipes/validation.pipe';
     ProfileModule,
     LocationModule,
     PlaceModule,
-    PlaceAttachmentModule,
   ],
   providers: [
     UniqueValidator,
