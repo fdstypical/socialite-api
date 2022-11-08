@@ -9,7 +9,6 @@ import { User } from 'src/models';
 import { RoleName } from 'src/types/common.types';
 import { LifePhotoService } from '../life-photo/life-photo.service';
 import { RoleService } from '../role/role.service';
-import { UserAvatarService } from '../user-avatar/user-avatar.service';
 import { CreateUserDto } from './dtos/create.dto';
 
 @Injectable()
@@ -17,7 +16,6 @@ export class UserService {
   constructor(
     @InjectModel(User) private readonly userRepository: typeof User,
     private readonly roleService: RoleService,
-    private readonly userAvatarService: UserAvatarService,
     private readonly lifePhotoService: LifePhotoService,
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
@@ -60,14 +58,6 @@ export class UserService {
   async create(dto: CreateUserDto) {
     const [userRole] = await this.findOrCreateRole(RoleName.USER);
     return this.userRepository.create({ ...dto, roleId: userRole.id });
-  }
-
-  async addAvatar(id: number) {
-    const { id: userId } = this.asyncContext.get('user');
-    return this.userAvatarService.addAvatarToUser({
-      userId,
-      fileId: id,
-    });
   }
 
   async addPhoto(id: number) {

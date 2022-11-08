@@ -10,6 +10,7 @@ import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
+import { UserAvatarService } from '../user/user-avatar.service';
 import { UserInterestService } from '../user/user-interest.service';
 import { UserService } from '../user/user.service';
 
@@ -18,6 +19,7 @@ export class ProfileController {
   constructor(
     private readonly userService: UserService,
     private readonly userInterestService: UserInterestService,
+    private readonly userAvatarService: UserAvatarService,
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
@@ -55,7 +57,7 @@ export class ProfileController {
     )
     id: number,
   ) {
-    return this.userService.addAvatar(id);
+    return this.userAvatarService.add(id);
   }
 
   @Post('addPhoto/:id')
