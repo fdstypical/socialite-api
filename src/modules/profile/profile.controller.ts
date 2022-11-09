@@ -8,9 +8,11 @@ import {
 } from '@nestjs/common';
 import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
+import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { UserAvatarService } from '../user/user-avatar.service';
 import { UserInterestService } from '../user/user-interest.service';
+import { UserLifePhotoService } from '../user/life-photo.service';
 import { UserService } from '../user/user.service';
 
 @Controller('profile')
@@ -19,6 +21,8 @@ export class ProfileController {
     private readonly userService: UserService,
     private readonly userInterestService: UserInterestService,
     private readonly userAvatarService: UserAvatarService,
+    private readonly userLifePhotoService: UserLifePhotoService,
+    private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
   @Post('interests')
@@ -68,6 +72,7 @@ export class ProfileController {
     )
     id: number,
   ) {
-    return this.userService.addPhoto(id);
+    const { id: userId } = this.asyncContext.get('user');
+    return this.userLifePhotoService.add({ userId, fileId: id });
   }
 }

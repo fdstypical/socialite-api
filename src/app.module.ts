@@ -14,7 +14,6 @@ import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { InterestModule } from './modules/interest/interest.module';
-import { LifePhotoModule } from './modules/life-photo/life-photo.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { LocationModule } from './modules/location/location.module';
 import { PlaceModule } from './modules/place/palce.module';
@@ -41,7 +40,6 @@ import { ValidationPipe } from './pipes/validation.pipe';
     AuthModule,
     UploadModule,
     InterestModule,
-    LifePhotoModule,
     ProfileModule,
     LocationModule,
     PlaceModule,
