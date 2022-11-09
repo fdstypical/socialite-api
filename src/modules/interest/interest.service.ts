@@ -34,7 +34,7 @@ export class InterestService {
   }
 
   async create(dto: CreateInterestDto) {
-    const userId = this.asyncContext.get('user').id;
+    const { id: userId } = this.asyncContext.get('user');
     return this.interestRepository.create({ ...dto, createdByUserId: userId });
   }
 

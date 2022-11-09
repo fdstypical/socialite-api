@@ -27,7 +27,8 @@ export class ProfileController {
 
   @Post('interests')
   addInterests(@Body() dto: AddInterestsDto) {
-    return this.userInterestService.add(dto.interests);
+    const { id: userId } = this.asyncContext.get('user');
+    return this.userInterestService.add(userId, dto.interests);
   }
 
   @Delete('interests/:id')
@@ -42,7 +43,8 @@ export class ProfileController {
     )
     id: number,
   ) {
-    return this.userInterestService.delete(id);
+    const { id: userId } = this.asyncContext.get('user');
+    return this.userInterestService.delete(userId, id);
   }
 
   @Post('avatar/:id')
@@ -57,7 +59,8 @@ export class ProfileController {
     )
     id: number,
   ) {
-    return this.userAvatarService.add(id);
+    const { id: userId } = this.asyncContext.get('user');
+    return this.userAvatarService.add(userId, id);
   }
 
   @Post('addPhoto/:id')
@@ -73,6 +76,6 @@ export class ProfileController {
     id: number,
   ) {
     const { id: userId } = this.asyncContext.get('user');
-    return this.userLifePhotoService.add({ userId, fileId: id });
+    return this.userLifePhotoService.add(userId, id);
   }
 }

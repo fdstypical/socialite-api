@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { LifePhoto } from 'src/models';
-import { CreateLifePhotoAttributes } from 'src/models/LifePhoto/interfaces';
 
 @Injectable()
 export class UserLifePhotoService {
@@ -10,7 +9,7 @@ export class UserLifePhotoService {
     private readonly lifePhotoRepository: typeof LifePhoto,
   ) {}
 
-  add({ userId, fileId }: CreateLifePhotoAttributes) {
+  add(userId: number, fileId: number) {
     return this.lifePhotoRepository.create({ userId, fileId });
   }
 }
