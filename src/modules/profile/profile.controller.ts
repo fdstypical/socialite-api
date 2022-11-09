@@ -63,7 +63,7 @@ export class ProfileController {
     return this.userAvatarService.add(userId, id);
   }
 
-  @Post('addPhoto/:id')
+  @Post('photos/:id')
   addPhoto(
     @Param(
       'id',
