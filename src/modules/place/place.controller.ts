@@ -77,8 +77,8 @@ export class PlaceController {
   }
 
   @Post('attachment')
-  addAttachment(@Body() dto: AddAttachmentDto) {
-    return this.placeAttachmentService.add(dto.placeId, dto.fileId);
+  addAttachment(@Body() { placeId, fileId }: AddAttachmentDto) {
+    return this.placeAttachmentService.add(placeId, fileId);
   }
 
   @Get()
