@@ -6,7 +6,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { UserInterestService } from './user-interest.service';
 import { UserAvatarService } from './user-avatar.service';
-import { UserLifePhotoService } from './life-photo.service';
+import { UserLifePhotoService } from './user-life-photos.service';
 
 @Module({
   imports: [
