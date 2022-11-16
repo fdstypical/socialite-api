@@ -12,7 +12,7 @@ import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { UserAvatarService } from '../user/user-avatar.service';
 import { UserInterestService } from '../user/user-interest.service';
-import { UserPhotoService } from '../user/user-life-photos.service';
+import { UserPhotoService } from '../user/user-photo.service';
 import { UserService } from '../user/user.service';
 
 @Controller('profile')

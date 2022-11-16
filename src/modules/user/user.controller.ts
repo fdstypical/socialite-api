@@ -12,7 +12,7 @@ import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory'
 import {
   avatarInclude,
   interestsInclude,
-  lifePhotosInclude,
+  userPhotosInclude,
   roleInclude,
 } from 'src/models/includes/user.includes';
 import { CreateUserDto } from './dtos/create.dto';
@@ -33,7 +33,7 @@ export class UserController {
       roleInclude,
       avatarInclude,
       interestsInclude,
-      lifePhotosInclude,
+      userPhotosInclude,
     ]);
   }
 

@@ -9,7 +9,7 @@ import {
 import { User, StaticField } from 'src/models';
 import { CreateUserPhotoAttributes } from './interfaces';
 
-@Table({ tableName: 'life_photos' })
+@Table({ tableName: 'user_photos' })
 export class UserPhoto extends Model<UserPhoto, CreateUserPhotoAttributes> {
   @Column({
     type: DataType.INTEGER,

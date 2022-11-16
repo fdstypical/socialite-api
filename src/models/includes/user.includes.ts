@@ -19,7 +19,7 @@ export const avatarInclude: Includeable = {
   include: [StaticField],
 };
 
-export const lifePhotosInclude: Includeable = {
+export const userPhotosInclude: Includeable = {
   model: UserPhoto,
   as: 'photos',
   include: [StaticField],

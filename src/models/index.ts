@@ -4,7 +4,7 @@ export { StaticField } from './StaticField/static-field.model';
 export { Interest } from './Interest/interest.model';
 export { UserInterest } from './User/user-interest.model';
 export { UserAvatar } from './User/user-avatar.model';
-export { UserPhoto } from './User/life-photo.model';
+export { UserPhoto } from './User/user-photo.model';
 export { Location } from './Location/location.model';
 export { Place } from './Place/place.model';
 export { PlaceInterest } from './Place/place-interest.model';

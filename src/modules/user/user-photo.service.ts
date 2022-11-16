@@ -6,10 +6,10 @@ import { UserPhoto } from 'src/models';
 export class UserPhotoService {
   constructor(
     @InjectModel(UserPhoto)
-    private readonly lifePhotoRepository: typeof UserPhoto,
+    private readonly userPhotoRepository: typeof UserPhoto,
   ) {}
 
   add(userId: number, fileId: number) {
-    return this.lifePhotoRepository.create({ userId, fileId });
+    return this.userPhotoRepository.create({ userId, fileId });
   }
 }
