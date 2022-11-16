@@ -7,10 +7,10 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 import { User, StaticField } from 'src/models';
-import { CreateLifePhotoAttributes } from './interfaces';
+import { CreateUserPhotoAttributes } from './interfaces';
 
 @Table({ tableName: 'life_photos' })
-export class LifePhoto extends Model<LifePhoto, CreateLifePhotoAttributes> {
+export class UserPhoto extends Model<UserPhoto, CreateUserPhotoAttributes> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

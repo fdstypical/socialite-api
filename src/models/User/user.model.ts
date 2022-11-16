@@ -15,7 +15,7 @@ import {
   Role,
   UserAvatar,
   UserInterest,
-  LifePhoto,
+  UserPhoto,
 } from 'src/models';
 import { UserCreationAttributes } from './interfaces';
 
@@ -71,6 +71,6 @@ export class User extends Model<User, UserCreationAttributes> {
   @HasOne(() => UserAvatar, 'userId')
   readonly avatar: UserAvatar;
 
-  @HasMany(() => LifePhoto, 'userId')
-  readonly lifePhotos: LifePhoto[];
+  @HasMany(() => UserPhoto, 'userId')
+  readonly photos: UserPhoto[];
 }

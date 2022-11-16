@@ -12,7 +12,7 @@ import { AsyncContext } from 'src/core/modules/async-context/async-context';
 import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import { UserAvatarService } from '../user/user-avatar.service';
 import { UserInterestService } from '../user/user-interest.service';
-import { UserLifePhotoService } from '../user/user-life-photos.service';
+import { UserPhotoService } from '../user/user-life-photos.service';
 import { UserService } from '../user/user.service';
 
 @Controller('profile')
@@ -21,7 +21,7 @@ export class ProfileController {
     private readonly userService: UserService,
     private readonly userInterestService: UserInterestService,
     private readonly userAvatarService: UserAvatarService,
-    private readonly userLifePhotoService: UserLifePhotoService,
+    private readonly userPhotoService: UserPhotoService,
     private readonly asyncContext: AsyncContext<string, any>,
   ) {}
 
@@ -76,6 +76,6 @@ export class ProfileController {
     id: number,
   ) {
     const { id: userId } = this.asyncContext.get('user');
-    return this.userLifePhotoService.add(userId, id);
+    return this.userPhotoService.add(userId, id);
   }
 }

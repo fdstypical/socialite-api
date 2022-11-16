@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { LifePhoto } from 'src/models';
+import { UserPhoto } from 'src/models';
 
 @Injectable()
-export class UserLifePhotoService {
+export class UserPhotoService {
   constructor(
-    @InjectModel(LifePhoto)
-    private readonly lifePhotoRepository: typeof LifePhoto,
+    @InjectModel(UserPhoto)
+    private readonly lifePhotoRepository: typeof UserPhoto,
   ) {}
 
   add(userId: number, fileId: number) {
