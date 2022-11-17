@@ -10,4 +10,6 @@ export enum ConstraintMessage {
   MUST_BE_NUMBER = 'must.be.number',
   MUST_BE_INTEGER = 'must.be.integer',
   MUST_BE_ENUM = 'must.be.enum',
+  MUST_BE_DATE = 'must.be.date',
+  MUST_BE_BOOL = 'must.be.bool',
 }
