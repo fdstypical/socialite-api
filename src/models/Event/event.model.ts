@@ -25,17 +25,16 @@ export class Event extends Model<Event, CreateEventAttributes> {
 
   @Column({
     type: DataType.DATE,
-    defaultValue: DataType.NOW,
     allowNull: false,
   })
-  readonly startDate: Date;
+  readonly dateStart: Date;
 
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: false,
     allowNull: false,
   })
-  readonly isPrivate: boolean = false;
+  readonly isPrivate: boolean;
 
   @Column({
     type: DataType.DATE,

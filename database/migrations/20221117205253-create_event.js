@@ -17,9 +17,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      startDate: {
+      dateStart: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now'),
         allowNull: false,
       },
       isPrivate: {

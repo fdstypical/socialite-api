@@ -17,6 +17,7 @@ import { InterestModule } from './modules/interest/interest.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { LocationModule } from './modules/location/location.module';
 import { PlaceModule } from './modules/place/palce.module';
+import { EventModule } from './modules/event/event.module';
 import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
@@ -43,6 +44,7 @@ import { ValidationPipe } from './pipes/validation.pipe';
     ProfileModule,
     LocationModule,
     PlaceModule,
+    EventModule,
   ],
   providers: [
     UniqueValidator,
