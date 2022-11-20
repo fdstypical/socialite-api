@@ -18,7 +18,7 @@ import { Interest } from 'src/models';
 import {
   creatorInclude,
   previewInclude,
-} from 'src/models/includes/interest.include';
+} from 'src/models/includes/interest.includes';
 import { ConstraintMessage } from 'src/constants/error.messages';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 

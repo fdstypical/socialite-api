@@ -1,6 +1,10 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateEventDto } from './dtos/create.dto';
 import { EventService } from './event.service';
+import {
+  creatorInclude,
+  previewInclude,
+} from 'src/models/includes/event.includes';
 
 @Controller('events')
 export class EventController {
@@ -13,6 +17,6 @@ export class EventController {
 
   @Get()
   getAll() {
-    return this.eventService.getAll();
+    return this.eventService.getAll([previewInclude, creatorInclude]);
   }
 }
