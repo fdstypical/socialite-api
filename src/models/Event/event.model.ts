@@ -1,4 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  Column,
+  DataType,
+  Model,
+  Table,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
+import { StaticField, User } from 'src/models';
 import { CreateEventAttributes } from './interfaces';
 
 @Table({ tableName: 'events' })
@@ -41,4 +49,18 @@ export class Event extends Model<Event, CreateEventAttributes> {
     allowNull: true,
   })
   readonly expiredDate: Date | null;
+
+  @ForeignKey(() => StaticField)
+  @Column({ type: DataType.INTEGER, allowNull: true })
+  readonly previewId: number;
+
+  @BelongsTo(() => StaticField, 'previewId')
+  readonly preview: StaticField;
+
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  readonly createdByUserId: number;
+
+  @BelongsTo(() => User, 'createdByUserId')
+  readonly creator: User;
 }

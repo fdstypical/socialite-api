@@ -3,6 +3,7 @@ import {
   IsDateString,
   IsOptional,
   IsString,
+  IsInt,
 } from 'class-validator';
 import { ConstraintMessage } from 'src/constants/error.messages';
 
@@ -23,4 +24,8 @@ export class CreateEventDto {
   @IsOptional()
   @IsDateString({ strict: true }, { message: ConstraintMessage.MUST_BE_DATE })
   readonly expiredDate: string;
+
+  @IsOptional()
+  @IsInt({ message: ConstraintMessage.MUST_BE_INTEGER })
+  readonly previewId?: number;
 }

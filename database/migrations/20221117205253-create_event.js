@@ -30,6 +30,16 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: true,
       },
+      previewId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: 'static_field', key: 'id' },
+      },
+      createdByUserId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' },
+      },
     });
   },
 
