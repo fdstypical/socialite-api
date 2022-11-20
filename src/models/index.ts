@@ -10,3 +10,4 @@ export { Place } from './Place/place.model';
 export { PlaceInterest } from './Place/place-interest.model';
 export { PlaceAttachment } from './Place/place-attachments.model';
 export { Event } from './Event/event.model';
+export { EventInterest } from './Event/event-interest.model';
