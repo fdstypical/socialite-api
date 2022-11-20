@@ -5,8 +5,9 @@ import {
   Table,
   ForeignKey,
   BelongsTo,
+  BelongsToMany,
 } from 'sequelize-typescript';
-import { StaticField, User } from 'src/models';
+import { StaticField, User, Interest, EventInterest } from 'src/models';
 import { CreateEventAttributes } from './interfaces';
 
 @Table({ tableName: 'events' })
@@ -63,4 +64,7 @@ export class Event extends Model<Event, CreateEventAttributes> {
 
   @BelongsTo(() => User, 'createdByUserId')
   readonly creator: User;
+
+  @BelongsToMany(() => Interest, () => EventInterest, 'eventId', 'interestId')
+  readonly interests: Interest[];
 }

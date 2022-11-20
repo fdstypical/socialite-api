@@ -14,6 +14,7 @@ import { AddInterestsDto } from '../interest/dtos/add-interests.dto';
 import {
   creatorInclude,
   previewInclude,
+  interestsInclude,
 } from 'src/models/includes/event.includes';
 import { PipeExceptionFactory } from 'src/core/factories/pipe-exception.factory';
 import { ConstraintMessage } from 'src/constants/error.messages';
@@ -72,6 +73,10 @@ export class EventController {
 
   @Get()
   getAll() {
-    return this.eventService.getAll([previewInclude, creatorInclude]);
+    return this.eventService.getAll([
+      previewInclude,
+      creatorInclude,
+      interestsInclude,
+    ]);
   }
 }

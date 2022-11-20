@@ -1,5 +1,5 @@
 import { Includeable } from 'sequelize';
-import { StaticField, User } from '..';
+import { StaticField, User, Interest } from '..';
 
 export const previewInclude: Includeable = {
   model: StaticField,
@@ -9,4 +9,9 @@ export const previewInclude: Includeable = {
 export const creatorInclude: Includeable = {
   model: User,
   as: 'creator',
+};
+
+export const interestsInclude: Includeable = {
+  model: Interest,
+  as: 'interests',
 };
