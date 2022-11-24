@@ -31,7 +31,7 @@
     "db:seed:all": "sequelize db:seed:all",
     "db:seed:undo": "sequelize db:seed:undo",
     "db:seed:undo:all": "sequelize db:seed:undo:all",
-    "prepare": "husky install"
+    "husky:prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/axios": "^0.1.0",
