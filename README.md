@@ -65,7 +65,16 @@ JWT_REFRESH_EXPIRES_IN=30d
 `docker run -d --name postgres -e POSTGRES_PASSWORD=root -e POSTGRES_USER=postgres -p 5432:5432 postgres` - start postgres localy on port 5432.
 
 ## Migrations
+
 `db:migrate:status` - status
 `db:migrate` - run migrations
 `db:migrate:undo` - undo last migration
-`migration:gen` -- generate new migrations *example: migration:gen -- --name create_tablex*
+`migration:gen` -- generate new migrations _example: migration:gen -- --name create_tablex_
+
+## Git-hooks
+
+#### To prepare git-hooks run
+
+```bash
+$ npm run husky:prepare
+```
