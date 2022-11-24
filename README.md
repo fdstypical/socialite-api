@@ -46,6 +46,7 @@ $ npm run test:cov
 
 ```
 # .*.env
+BASE_URL=https://some.domain.com/
 PORT=3000
 DB_NAME=postgres
 DB_USERNAME=postgres
