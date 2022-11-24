@@ -30,7 +30,8 @@
     "db:seed": "sequelize db:seed",
     "db:seed:all": "sequelize db:seed:all",
     "db:seed:undo": "sequelize db:seed:undo",
-    "db:seed:undo:all": "sequelize db:seed:undo:all"
+    "db:seed:undo:all": "sequelize db:seed:undo:all",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/axios": "^0.1.0",
@@ -74,6 +75,7 @@
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.2",
     "jest": "28.1.2",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",
