@@ -49,10 +49,7 @@ export class UserController {
     )
     id: number,
   ) {
-    return this.userService.getById(id, null, [
-      roleInclude,
-      avatarInclude,
-    ]);
+    return this.userService.getById(id, null, [roleInclude, avatarInclude]);
   }
 
   @Delete(':id')

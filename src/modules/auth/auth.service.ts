@@ -57,7 +57,11 @@ export class AuthService {
     return this.generateTokens(await this.createTokenPayload(user));
   }
 
-  private async createTokenPayload({ id, email, roleId }: User): Promise<TokenPayload> {
+  private async createTokenPayload({
+    id,
+    email,
+    roleId,
+  }: User): Promise<TokenPayload> {
     const role = await this.roleService.getById(roleId);
     return { id, email, roleId, roleName: role.name };
   }

@@ -20,7 +20,8 @@ export class LocationService {
   async getById(id: number, rejectOnEmpty: Nullable<Error> = null) {
     return this.locationRepository.findByPk(id, {
       rejectOnEmpty:
-        rejectOnEmpty ?? new NotFoundException(ErrorMessage.NotFound, 'No such lication'),
+        rejectOnEmpty ??
+        new NotFoundException(ErrorMessage.NotFound, 'No such lication'),
     });
   }
 
