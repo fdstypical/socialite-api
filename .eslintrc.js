@@ -24,7 +24,7 @@ module.exports = {
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-empty-interface': [
       'error',
-      { allowSingleExtends: false },
+      { allowSingleExtends: true },
     ],
   },
 };
