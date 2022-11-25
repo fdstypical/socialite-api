@@ -106,8 +106,8 @@
   },
   "lint-staged": {
     "{src,apps,libs,test}/**/*.ts": [
-      "npm run lint",
-      "npm run format"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
